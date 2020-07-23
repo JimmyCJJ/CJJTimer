@@ -54,7 +54,6 @@
 		0AE75A2024C8424900A629D3 /* CJJTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJTimer.h; sourceTree = "<group>"; };
 		0AE75A2124C8424900A629D3 /* CJJTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJJTimer.m; sourceTree = "<group>"; };
 		0AE75A2524C843DA00A629D3 /* Marcos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marcos.h; sourceTree = "<group>"; };
-		0AE75A2624C8445900A629D3 /* CJJTimerMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerMacro.h; sourceTree = "<group>"; };
 		0AE8247D24AB178200A95268 /* CJJTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CJJTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8248024AB178200A95268 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0AE8248124AB178200A95268 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -171,7 +170,6 @@
 			children = (
 				0AE75A2024C8424900A629D3 /* CJJTimer.h */,
 				0AE75A2124C8424900A629D3 /* CJJTimer.m */,
-				0AE75A2624C8445900A629D3 /* CJJTimerMacro.h */,
 			);
 			path = CJJTimer;
 			sourceTree = "<group>";

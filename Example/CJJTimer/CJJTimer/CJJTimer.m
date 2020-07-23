@@ -2,10 +2,14 @@
 //  CJJTimer.m
 //  CJJTimer
 //
-//  Created by CJJ on 2020/7/21.
+//  Created by JimmyCJJ on 2020/7/21.
+//  github   : https://github.com/JimmyCJJ
+//  wechat   : cjj_ohyeah
+//  E-mail   : 403327747@qq.com
+//  jianshu  : https://www.jianshu.com/u/fd9922e50c1a
+//  欢迎同行一起交流
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
-
 //弱化
 #define kWeakSelf(type)  __weak typeof(type) weak##type = type;
 //代码块里面强化，防止丢失
