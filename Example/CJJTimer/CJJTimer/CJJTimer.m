@@ -326,21 +326,21 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
     }
     
     if(lastHour < 10){
-        self.hourL.text = [NSString stringWithFormat:@"0%ld",lastHour];
+        self.hourL.text = [NSString stringWithFormat:@"0%ld",(long)lastHour];
     }else{
-        self.hourL.text = [NSString stringWithFormat:@"%ld",lastHour];
+        self.hourL.text = [NSString stringWithFormat:@"%ld",(long)lastHour];
     }
     
     if(lastMinute < 10){
-        self.minL.text = [NSString stringWithFormat:@"0%ld",lastMinute];
+        self.minL.text = [NSString stringWithFormat:@"0%ld",(long)lastMinute];
     }else{
-        self.minL.text = [NSString stringWithFormat:@"%ld",lastMinute];
+        self.minL.text = [NSString stringWithFormat:@"%ld",(long)lastMinute];
     }
     
     if(lastSecond < 10){
-        self.secL.text = [NSString stringWithFormat:@"0%ld",lastSecond];
+        self.secL.text = [NSString stringWithFormat:@"0%ld",(long)lastSecond];
     }else{
-        self.secL.text = [NSString stringWithFormat:@"%ld",lastSecond];
+        self.secL.text = [NSString stringWithFormat:@"%ld",(long)lastSecond];
     }
     
     [self refreshLayout];
