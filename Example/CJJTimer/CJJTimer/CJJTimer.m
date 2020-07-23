@@ -16,6 +16,7 @@
 #define kStrongSelf(type) __strong typeof(type) strong##type = weak##type;
 
 #import "CJJTimer.h"
+#import "Masonry.h"
 
 typedef NS_ENUM(NSInteger,CJJTimerViewType){
     CJJTimerView_TimerView = 1,
