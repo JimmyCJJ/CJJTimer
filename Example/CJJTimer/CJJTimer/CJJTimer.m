@@ -6,6 +6,11 @@
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
 
+//弱化
+#define kWeakSelf(type)  __weak typeof(type) weak##type = type;
+//代码块里面强化，防止丢失
+#define kStrongSelf(type) __strong typeof(type) strong##type = weak##type;
+
 #import "CJJTimer.h"
 
 typedef NS_ENUM(NSInteger,CJJTimerViewType){
@@ -39,6 +44,7 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
 
 - (void)configureData{
     self.timerLastTime = @"";
+    self.timerAutoStart = YES;
     self.timerViewWidth = 22;
     self.timerViewHeight = 22;
     self.timerViewInset = 4;
@@ -82,33 +88,58 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
 
 @end
 
+#pragma mark -
+
+static NSArray * CJJTimerObserverKeyPaths() {
+    static NSArray *_CJJTimerObservedKeyPaths = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _CJJTimerObservedKeyPaths = @[@"timerLastTime"];
+    });
+    return _CJJTimerObservedKeyPaths;
+}
+
+static void *CJJTimerObserverContext = &CJJTimerObserverContext;
+
 @interface CJJTimer ()
 @property (nonatomic, strong) UIView *hourV;
 @property (nonatomic, strong) UIView *minV;
 @property (nonatomic, strong) UIView *secV;
-@property (nonatomic, copy) UILabel *hourL;
-@property (nonatomic, copy) UILabel *minL;
-@property (nonatomic, copy) UILabel *secL;
+@property (nonatomic, strong) UILabel *hourL;
+@property (nonatomic, strong) UILabel *minL;
+@property (nonatomic, strong) UILabel *secL;
 @property (nonatomic, strong) UILabel *firstColonL;
 @property (nonatomic, strong) UILabel *secondColonL;
 
 @property (nonatomic, assign) CGFloat hourLastWidth;
+@property (nonatomic, assign, getter=isSubspend) BOOL subspend;
 @property (nonatomic, strong) dispatch_source_t dispatchTimer;
 @end
 
 @implementation CJJTimer
 
-+ (instancetype)timerWithConfigure:(CJJTimerConfiguration *)configuration{
++ (instancetype)timerWithConfiguration:(CJJTimerConfiguration *)configuration{
     CJJTimer *timer = [[CJJTimer alloc] initWithFrame:CGRectZero];
     timer.configuration = configuration;
-    [timer setViews];
-    [timer setLayout];
+    [timer setUp];
     return timer;
 }
 
-- (void)configureLayout:(CJJTimerLayout)layout{
-    layout(self.configuration.timerWidth, self.configuration.timerHeight);
-    layout = nil;
+- (void)setUp{
+    [self setObserveValue];
+    [self setViews];
+    [self setLayout];
+    if(self.configuration.isTimerAutoStart){
+        [self startTimer];
+    }
+}
+
+- (void)setObserveValue{
+    for (NSString *keyPath in CJJTimerObserverKeyPaths()) {
+        if([self.configuration respondsToSelector:NSSelectorFromString(keyPath)]){
+            [self.configuration addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:CJJTimerObserverContext];
+        }
+    }
 }
 
 - (void)setViews{
@@ -129,7 +160,6 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
     [self displayViews:self.secL viewType:CJJTimerView_TextLabel];
     [self displayViews:self.firstColonL viewType:CJJTimerView_ColonLabel];
     [self displayViews:self.secondColonL viewType:CJJTimerView_ColonLabel];
-    
 }
 
 - (void)setLayout{
@@ -210,45 +240,65 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
     }
 }
 
+- (void)configureLayout:(CJJTimerLayout)layout{
+    layout(self.configuration.timerWidth, self.configuration.timerHeight);
+}
+
+#pragma mark - observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == CJJTimerObserverContext) {
+        if([keyPath isEqualToString:@"timerLastTime"]){
+            [self startTimer];
+        }
+    }
+}
+
 #pragma mark - logic
 
-/// 开启倒计时
-- (void)beginTimer{
-    [self endTimer];
+/// 开启定时器
+- (dispatch_source_t)startTimer{
     //先赋值一次
     [self refreshView];
     [self refreshLayout];
     //GCD定时器
-    self.dispatchTimer = CreateDispatchTimer(1.0*NSEC_PER_SEC, 0, dispatch_get_global_queue(0, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self refreshView];
-        });
-    });
+    return self.dispatchTimer;
 }
 
-dispatch_source_t CreateDispatchTimer(uint64_t interval,
-                                      uint64_t leeway,
-                                      dispatch_queue_t queue,
-                                      dispatch_block_t block)
-{
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
-                                                     0, 0, queue);
-    if (timer)
-    {
-        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
-        dispatch_source_set_event_handler(timer, block);
-        dispatch_resume(timer);
+/// 销毁定时器
+- (void)stopTimer{
+    if(_dispatchTimer){
+        if(_subspend){
+            [self resumeTimer];
+        }
+        dispatch_source_cancel(_dispatchTimer);
+        _dispatchTimer = nil;
     }
-    return timer;
 }
 
-/// 停止倒计时
-- (void)endTimer{
-    if(self.dispatchTimer){
-        dispatch_source_cancel(self.dispatchTimer);
-        self.dispatchTimer = nil;
+/// 暂停定时器
+- (void)suspendTimer{
+    if(_dispatchTimer){
+        dispatch_suspend(_dispatchTimer);
+        self.subspend = YES;
     }
 }
+
+/// 恢复定时器
+- (void)resumeTimer{
+    if(_dispatchTimer){
+        dispatch_resume(_dispatchTimer);
+        _subspend = NO;
+    }
+}
+
+/// 重置定时器
+- (void)resetTimer{
+    
+}
+
+#pragma mark - refresh UI
 
 - (void)refreshView{
     
@@ -261,6 +311,15 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
     NSInteger lastHour = compareDate.hour+compareDate.day*24;
     NSInteger lastMinute = compareDate.minute;
     NSInteger lastSecond = compareDate.second;
+    
+    if(lastHour <= 0 && lastMinute <= 0 && lastSecond <= 0){
+        self.hourL.text = @"00";
+        self.minL.text = @"00";
+        self.secL.text = @"00";
+        [self stopTimer];
+        return;
+    }
+    
     if(lastHour < 10){
         self.hourL.text = [NSString stringWithFormat:@"0%ld",lastHour];
     }else{
@@ -303,36 +362,25 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
     
 }
 
-#pragma mark  比较takeCarTime与systemTime
-
 - (NSDateComponents *)startTimeStamp:(NSString *)startTimeStamp endTimeStamp:(NSString *)endTimeStamp
 {
-    //  时区相差8个小时 加上这个时区即是北京时间
+    //东八区-北京时间
     NSTimeZone *timeZone = [NSTimeZone systemTimeZone];
     NSInteger delta = [timeZone secondsFromGMT];
     // 两个时间戳转换日期类
-    
-    NSDate *DRstartDate = [[NSDate alloc] initWithTimeIntervalSince1970:[startTimeStamp doubleValue] + delta];
-    NSDate *DRendDate = [[NSDate alloc] initWithTimeIntervalSince1970:[endTimeStamp doubleValue] + delta];
-    // 日历对象 （方便比较两个日期之间的差距）
+    NSDate *startDate = [[NSDate alloc] initWithTimeIntervalSince1970:[startTimeStamp doubleValue] + delta];
+    NSDate *endDate = [[NSDate alloc] initWithTimeIntervalSince1970:[endTimeStamp doubleValue] + delta];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    // NSCalendarUnit 枚举代表想获得哪些差值 NSCalendarUnitYear 年 NSCalendarUnitWeekOfMonth 月
     NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitWeekOfMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    NSDateComponents *cmps = [calendar components:unit fromDate:DRstartDate toDate:DRendDate options:0];
-    // 获得某个时间的年月日时分秒
-    
-    //        NSDateComponents *createDateCmps = [calendar components:unit fromDate:DRstartDate];
-    
-    //        NSDateComponents *nowCmps = [calendar components:unit fromDate:DRendDate];
+    NSDateComponents *cmps = [calendar components:unit fromDate:startDate toDate:endDate options:0];
 //    NSLog(@"剩余%ld天,%ld小时%ld分%ld秒", cmps.day ,cmps.hour, cmps.minute, cmps.second);
-//    NSLog(@"相差%ld小时",cmps.hour);
     return cmps;
 }
 
 ////返回秒为单位的时间戳
 - (NSString *)getNowTimeTimeStampSec{
 
-    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    NSDate *datenow = [NSDate date];
 
     NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
 
@@ -343,7 +391,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 //返回毫秒为单位的时间戳
 - (NSString *)getNowTimeTimestampMinSec{
     
-    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    NSDate *datenow = [NSDate date];
     
     NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)([datenow timeIntervalSince1970]*1000)];
     
@@ -354,7 +402,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 
 - (void)refreshLayout{
     CGFloat oneLineH = [self getLabelHeightWithString:@"one" Width:20 font:self.configuration.timerTextLabelFont];
-    CGFloat hourW = [self getLabelWidthWithString:self.hourL.text Height:oneLineH font:self.configuration.timerTextLabelFont]+2;
+    CGFloat hourW = [self getLabelWidthWithString:self.hourL.text Height:oneLineH font:self.configuration.timerTextLabelFont]+5;
     
     if(self.hourLastWidth > 0){
         if(self.hourLastWidth != hourW){
@@ -365,6 +413,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
         }
     }else{
         self.hourLastWidth = hourW;
+        [_hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(hourW);
+        }];
     }
 }
 
@@ -394,6 +445,35 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 }
 
 #pragma mark - lazy
+
+- (dispatch_source_t)dispatchTimer{
+    if(!_dispatchTimer){
+        kWeakSelf(self)
+        _dispatchTimer = CreateDispatchTimer(1.0*NSEC_PER_SEC, 0, dispatch_get_global_queue(0, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                kStrongSelf(self)
+                [strongself refreshView];
+            });
+        });
+    }
+    return _dispatchTimer;
+}
+
+dispatch_source_t CreateDispatchTimer(uint64_t interval,
+                                      uint64_t leeway,
+                                      dispatch_queue_t queue,
+                                      dispatch_block_t block)
+{
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                                     0, 0, queue);
+    if (timer)
+    {
+        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
+        dispatch_source_set_event_handler(timer, block);
+        dispatch_resume(timer);
+    }
+    return timer;
+}
 
 - (UIView *)hourV{
     if(!_hourV){
@@ -465,7 +545,13 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 
 - (void)dealloc
 {
-    [self endTimer];
+    NSLog(@"CJJ定时器销毁");
+    [self stopTimer];
+    for (NSString *keyPath in CJJTimerObserverKeyPaths()) {
+        if([self.configuration respondsToSelector:NSSelectorFromString(keyPath)]){
+            [self.configuration removeObserver:self forKeyPath:keyPath context:CJJTimerObserverContext];
+        }
+    }
 }
 
 @end

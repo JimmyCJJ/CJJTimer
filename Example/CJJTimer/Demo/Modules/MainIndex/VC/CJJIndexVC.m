@@ -9,7 +9,7 @@
 #import "CJJIndexVC.h"
 
 @interface CJJIndexVC ()
-@property (nonatomic, strong) CJJTimer *timer;
+@property (nonatomic, strong) UIButton *enterBtn;
 @end
 
 @implementation CJJIndexVC
@@ -22,37 +22,35 @@
     [self setUpLayout];
 }
 
-
 #pragma mark - set up
 
 - (void)setUpView{
-    self.view.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:self.timer];
-    [self.timer beginTimer];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.enterBtn];
 }
 
 - (void)setUpLayout{
-    [self.timer configureLayout:^(CGFloat width, CGFloat height) {
-        [self.timer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(50);
-            make.centerX.mas_equalTo(0);
-            make.size.mas_equalTo(CGSizeMake(width, height));
-        }];
+    [_enterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(0);
     }];
 }
 
 #pragma mark - action
 
+- (void)goToNextVC:(UIButton *)btn{
+    [self.navigationController pushViewController:CJJRouterCreatVC(@"CJJTimerVC") animated:YES];
+}
 
 #pragma mark - lazy
 
-- (CJJTimer *)timer{
-    if(!_timer){
-        CJJTimerConfiguration *configuration = [CJJTimerConfiguration configureTimer];
-        configuration.timerLastTime = @"199551280000";
-        _timer = [CJJTimer timerWithConfigure:configuration];
+- (UIButton *)enterBtn{
+    if(!_enterBtn){
+        _enterBtn = [UIButton new];
+        [_enterBtn setTitle:@"点击进入demo" forState:UIControlStateNormal];
+        [_enterBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_enterBtn addTarget:self action:@selector(goToNextVC:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _timer;
+    return _enterBtn;
 }
 
 @end

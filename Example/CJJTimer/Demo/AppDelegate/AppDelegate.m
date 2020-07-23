@@ -25,7 +25,8 @@
 
 - (void)configureWindow{
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.window.rootViewController = CJJRouterCreatVC(@"CJJIndexVC");
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:CJJRouterCreatVC(@"CJJIndexVC")];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }
 

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^CJJTimerLayout)(CGFloat width, CGFloat height);
+typedef void (^CJJTimerLayout)(CGFloat timerWidth, CGFloat timerHeight);
 
 @interface CJJTimerConfiguration : NSObject
 
@@ -18,7 +18,9 @@ typedef void (^CJJTimerLayout)(CGFloat width, CGFloat height);
 
 #pragma mark - Function Config
 /// 倒数截止的时间（传时间戳）
-@property (nonatomic, assign) NSString *timerLastTime;
+@property (nonatomic, copy) NSString *timerLastTime;
+/// 是否自动开启定时器，默认YES
+@property (nonatomic, assign, getter=isTimerAutoStart) BOOL timerAutoStart;
 
 #pragma mark - UI Config
 /// 时间块的宽度，默认22
@@ -61,16 +63,26 @@ typedef void (^CJJTimerLayout)(CGFloat width, CGFloat height);
 
 @property (nonatomic, strong) CJJTimerConfiguration *configuration;
 
-+ (instancetype)timerWithConfigure:(CJJTimerConfiguration *)configuration;
++ (instancetype)timerWithConfiguration:(CJJTimerConfiguration *)configuration;
 
 /// 自动布局
 /// @param layout 此block会返回自动计算后的timer的width和height，可用于布局
 - (void)configureLayout:(CJJTimerLayout)layout;
 
-/// 开启倒计时
-- (void)beginTimer;
-/// 停止倒计时，**必须手动调用才能销毁**
-- (void)endTimer;
+/// beginTimer与endTimer成对使用
+/// 开启定时器
+- (dispatch_source_t)startTimer;
+/// 销毁定时器（如果想手动控制释放的时机请调用此方法，否则自动释放）
+- (void)stopTimer;
+
+/// suspendTimer和resumeTimer成对使用
+/// 暂停定时器
+- (void)suspendTimer;
+/// 恢复定时器
+- (void)resumeTimer;
+
+/// 重置定时器
+- (void)resetTimer;
 
 @end
 
