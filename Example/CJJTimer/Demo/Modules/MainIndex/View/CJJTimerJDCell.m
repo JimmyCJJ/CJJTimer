@@ -1,23 +1,23 @@
 //
-//  CJJTimerTBCell.m
+//  CJJTimerJDCell.m
 //  CJJTimer
 //
-//  Created by CJJ on 2020/7/23.
+//  Created by CJJ on 2020/7/24.
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
 
-#import "CJJTimerTBCell.h"
+#import "CJJTimerJDCell.h"
 
-@interface CJJTimerTBCell ()<CJJTimerDelegate>
+@interface CJJTimerJDCell ()
 @property (nonatomic, strong) UILabel *titleL;
 @property (nonatomic, strong) CJJTimer *timer;
 @end
 
-@implementation CJJTimerTBCell
+@implementation CJJTimerJDCell
 
 + (instancetype)makeCellWithTableView:(UITableView *)tableView{
     NSString * const cellID = NSStringFromClass([self class]);
-    CJJTimerTBCell *cell= [tableView dequeueReusableCellWithIdentifier:cellID];
+    CJJTimerJDCell *cell= [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
@@ -34,11 +34,10 @@
     return self;
 }
 
-- (void)setViews{
-    _titleL = [UILabel new];
-    _titleL.text = @"聚划算";
+- (void)setViews{_titleL = [UILabel new];
+    _titleL.text = @"京东秒杀";
     _titleL.textColor = [UIColor blackColor];
-    _titleL.font = [UIFont systemFontOfSize:19 weight:UIFontWeightBold];
+    _titleL.font = [UIFont systemFontOfSize:17 weight:UIFontWeightBold];
     
     [self.contentView addSubview:_titleL];
     [self.contentView addSubview:self.timer];
@@ -59,31 +58,21 @@
     }];
 }
 
-#pragma mark - CJJTimerDelegate
-
-/// 倒计时结束回调
-- (void)timerFinished:(CJJTimer *)timer{
-    NSLog(@"timerFinished倒计时结束回调");
-}
-
-#pragma mark - lazy
-
 - (CJJTimer *)timer{
     if(!_timer){
         CJJTimerConfiguration *configuration = [CJJTimerConfiguration configureTimer];
-        configuration.timerViewWidth = 18;
-        configuration.timerViewHeight = 18;
-        configuration.timerHiddenWhenFinished = NO;
-        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+10];
-//        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+12*60*60];
+        configuration.timerViewWidth = 15;
+        configuration.timerViewHeight = 16;
+        configuration.timerViewInset = 2;
+        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+30];
+//        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+13*60*60];
         configuration.timerViewCornerRadius = 3;
         configuration.timerViewBackgroundColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
-        configuration.timerTextLabelFont = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
+        configuration.timerTextLabelFont = [UIFont systemFontOfSize:9 weight:UIFontWeightBold];
         configuration.timerTextLabelColor = [UIColor whiteColor];
-        configuration.timerColonLabelFont = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
+        configuration.timerColonLabelFont = [UIFont systemFontOfSize:10 weight:UIFontWeightBold];
         configuration.timerColonLabelColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
         _timer = [CJJTimer timerWithConfiguration:configuration];
-        _timer.delegate = self;
     }
     return _timer;
 }

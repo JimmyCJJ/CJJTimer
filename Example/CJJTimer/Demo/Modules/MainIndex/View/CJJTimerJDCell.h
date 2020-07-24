@@ -1,8 +1,8 @@
 //
-//  CJJTimerTBCell.h
+//  CJJTimerJDCell.h
 //  CJJTimer
 //
-//  Created by CJJ on 2020/7/23.
+//  Created by CJJ on 2020/7/24.
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
 
@@ -10,10 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CJJTimerTBCell : UITableViewCell
+@interface CJJTimerJDCell : UITableViewCell
 
 + (instancetype)makeCellWithTableView:(UITableView *)tableView;
-
 
 @end
 

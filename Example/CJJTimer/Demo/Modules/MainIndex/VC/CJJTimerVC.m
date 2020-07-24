@@ -8,8 +8,11 @@
 
 #import "CJJTimerVC.h"
 #import "CJJTimerModel.h"
+#import "CJJTimerHeaderView.h"
 #import "CJJTimerTBCell.h"
+#import "CJJTimerJDCell.h"
 #import "CJJTimerSNCell.h"
+#import "CJJTimerPDDCell.h"
 
 @interface CJJTimerVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -54,27 +57,49 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    CJJTimerHeaderView *headerView = [CJJTimerHeaderView new];
+    headerView.model = self.timerArr[section];
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.timerArr.count;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == 0){
+    if(indexPath.section == 0){
         CJJTimerTBCell *cell = [CJJTimerTBCell makeCellWithTableView:tableView];
-        cell.model = self.timerArr[indexPath.row];
+        return cell;
+    }else if(indexPath.section == 1){
+        CJJTimerJDCell *cell = [CJJTimerJDCell makeCellWithTableView:tableView];
+        return cell;
+    }else if(indexPath.section == 2){
+        CJJTimerSNCell* cell = [CJJTimerSNCell makeCellWithTableView:tableView];
         return cell;
     }else{
-        CJJTimerSNCell* cell = [CJJTimerSNCell makeCellWithTableView:tableView];
-        cell.model = self.timerArr[indexPath.row];
+        CJJTimerPDDCell *cell = [CJJTimerPDDCell makeCellWithTableView:tableView];
         return cell;
     }
     
@@ -104,7 +129,7 @@
 
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

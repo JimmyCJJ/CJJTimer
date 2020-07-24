@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CJJTimerModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CJJTimerSNCell : UITableViewCell
 
 + (instancetype)makeCellWithTableView:(UITableView *)tableView;
-
-@property (nonatomic, strong) CJJTimerModel *model;
 
 @end
 

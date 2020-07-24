@@ -22,10 +22,12 @@ typedef void (^CJJTimerLayout)(CGFloat timerWidth, CGFloat timerHeight);
 + (instancetype)configureTimer;
 
 #pragma mark - Function Config
-/// 倒数截止的时间（传时间戳）
+/// 倒数截止的时间（传时间戳，必传）
 @property (nonatomic, copy) NSString *timerLastTime;
 /// 是否自动开启定时器，默认YES
 @property (nonatomic, assign, getter=isTimerAutoStart) BOOL timerAutoStart;
+/// 倒计时结束后是否隐藏，默认YES，如果设为NO，则显示初始值00:00:00
+@property (nonatomic, assign, getter=isTimerHiddenWhenFinished) BOOL timerHiddenWhenFinished;
 
 #pragma mark - UI Config
 /// 时间块的宽度，默认22
@@ -36,6 +38,8 @@ typedef void (^CJJTimerLayout)(CGFloat timerWidth, CGFloat timerHeight);
 @property (nonatomic, assign) CGFloat timerViewInset;
 /// 冒号的宽度，默认4
 @property (nonatomic, assign) CGFloat timerColonWidth;
+/// 内边距，默认 UIEdgeInsetsZero
+@property(nonatomic) UIEdgeInsets timerInsets;
 /// timerView的背景颜色
 @property (nullable, nonatomic, strong) UIColor *timerViewBackgroundColor;
 /// timerView的圆角
@@ -64,11 +68,22 @@ typedef void (^CJJTimerLayout)(CGFloat timerWidth, CGFloat timerHeight);
 @property (nonatomic, assign, readonly) CGFloat timerHeight;
 @end
 
+
+@class CJJTimer;
+@protocol CJJTimerDelegate <NSObject>
+
+/// 倒计时结束回调
+- (void)timerFinished:(CJJTimer *)timer;
+
+@end
+
 @interface CJJTimer : UIView
 
 @property (nonatomic, strong) CJJTimerConfiguration *configuration;
 
 + (instancetype)timerWithConfiguration:(CJJTimerConfiguration *)configuration;
+
+@property (nonatomic, weak) id<CJJTimerDelegate> delegate;
 
 /// 自动布局
 /// @param layout 此block会返回自动计算后的timer的width和height，可用于布局
@@ -87,7 +102,7 @@ typedef void (^CJJTimerLayout)(CGFloat timerWidth, CGFloat timerHeight);
 - (void)resumeTimer;
 
 /// 重置定时器
-- (void)resetTimer;
+//- (void)resetTimer;
 
 @end
 

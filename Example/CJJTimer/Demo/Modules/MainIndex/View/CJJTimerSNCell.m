@@ -9,7 +9,7 @@
 #import "CJJTimerSNCell.h"
 
 @interface CJJTimerSNCell ()
-@property (nonatomic, strong) UILabel *nameL;
+@property (nonatomic, strong) UILabel *timeL;
 @property (nonatomic, strong) CJJTimer *timer;
 @end
 
@@ -35,49 +35,61 @@
 }
 
 - (void)setViews{
-    _nameL = [UILabel new];
+    _timeL = [UILabel new];
+    _timeL.text = @"16点场";
+    _timeL.textColor = [UIColor whiteColor];
+    _timeL.backgroundColor = [UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1];
+    _timeL.font = [UIFont systemFontOfSize:13];
+    _timeL.textAlignment = NSTextAlignmentCenter;
     
-    [self.contentView addSubview:_nameL];
+    [self.contentView addSubview:_timeL];
     [self.contentView addSubview:self.timer];
 }
 
 - (void)setLayout{
-    [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(10);
+    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(20);
+        make.height.mas_equalTo(22);
         make.centerY.mas_equalTo(0);
+        make.width.mas_equalTo(50);
     }];
     
     [self.timer configureLayout:^(CGFloat timerWidth, CGFloat timerHeight) {
         [self.timer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.nameL.mas_right).offset(20);
+            make.left.mas_equalTo(self.timeL.mas_right);
             make.centerY.mas_equalTo(0);
             make.size.mas_equalTo(CGSizeMake(timerWidth, timerHeight));
         }];
     }];
 }
 
-- (void)setModel:(CJJTimerModel *)model{
-    _model = model;
-    _nameL.text = _model.name;
+- (void)drawRect:(CGRect)rect{
+    [_timeL platFormRadiusViewWithRectCorner:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(3, 3)];
+    
+    [_timer platFormRadiusViewWithRectCorner:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(3, 3)];
+    CAShapeLayer* shape = [CAShapeLayer layer];
+    shape.path = ((CAShapeLayer *)_timer.layer.mask).path;
+    shape.strokeColor = [UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1].CGColor;//边框色
+    shape.lineWidth = 0.5f;//边框宽度
+    shape.fillColor = [UIColor clearColor].CGColor;//填充色
+    [_timer.layer addSublayer:shape];
 }
 
 - (CJJTimer *)timer{
     if(!_timer){
         CJJTimerConfiguration *configuration = [CJJTimerConfiguration configureTimer];
-        configuration.timerLastTime = @"1595574877";//1595488477 1595574877
-//        configuration.timerViewWidth = 15;
+        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+14*60*60];
+        configuration.timerViewWidth = 18;
 //        configuration.timerViewHeight = 15;
         configuration.timerViewInset = 0;
-        configuration.timerColonWidth = 2;
+        configuration.timerColonWidth = 4;
+        configuration.timerInsets = UIEdgeInsetsMake(0, 4, 0, 4);
         configuration.timerViewBackgroundColor = [UIColor whiteColor];
-        configuration.timerTextLabelFont = [UIFont systemFontOfSize:9 weight:UIFontWeightBold];
-        configuration.timerTextLabelColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
-        configuration.timerColonLabelFont = [UIFont systemFontOfSize:8 weight:UIFontWeightBold];
-        configuration.timerColonLabelColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
+        configuration.timerTextLabelFont = [UIFont systemFontOfSize:13];
+        configuration.timerTextLabelColor = [UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1];
+        configuration.timerColonLabelFont = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
+        configuration.timerColonLabelColor = [UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1];
         _timer = [CJJTimer timerWithConfiguration:configuration];
-        _timer.layer.borderWidth = 0.5;
-        _timer.layer.borderColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1].CGColor;
-        _timer.layer.cornerRadius = 3;
     }
     return _timer;
 }

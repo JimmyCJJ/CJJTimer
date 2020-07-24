@@ -46,7 +46,7 @@
 - (UIButton *)enterBtn{
     if(!_enterBtn){
         _enterBtn = [UIButton new];
-        [_enterBtn setTitle:@"点击进入demo" forState:UIControlStateNormal];
+        [_enterBtn setTitle:@"点击进入倒计时" forState:UIControlStateNormal];
         [_enterBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_enterBtn addTarget:self action:@selector(goToNextVC:) forControlEvents:UIControlEventTouchUpInside];
     }
