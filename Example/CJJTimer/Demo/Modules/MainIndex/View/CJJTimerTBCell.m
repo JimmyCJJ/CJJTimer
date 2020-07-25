@@ -8,9 +8,9 @@
 
 #import "CJJTimerTBCell.h"
 
-@interface CJJTimerTBCell ()<CJJTimerDelegate>
+@interface CJJTimerTBCell ()<CJJTimerViewDelegate>
 @property (nonatomic, strong) UILabel *titleL;
-@property (nonatomic, strong) CJJTimer *timer;
+@property (nonatomic, strong) CJJTimerView *timer;
 @end
 
 @implementation CJJTimerTBCell
@@ -62,15 +62,15 @@
 #pragma mark - CJJTimerDelegate
 
 /// 倒计时结束回调
-- (void)timerFinished:(CJJTimer *)timer{
+- (void)timerFinished:(CJJTimerView *)timer{
     NSLog(@"timerFinished倒计时结束回调");
 }
 
 #pragma mark - lazy
 
-- (CJJTimer *)timer{
+- (CJJTimerView *)timer{
     if(!_timer){
-        CJJTimerConfiguration *configuration = [CJJTimerConfiguration configureTimer];
+        CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
         configuration.timerViewWidth = 18;
         configuration.timerViewHeight = 18;
         configuration.timerHiddenWhenFinished = NO;
@@ -82,7 +82,7 @@
         configuration.timerTextLabelColor = [UIColor whiteColor];
         configuration.timerColonLabelFont = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
         configuration.timerColonLabelColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
-        _timer = [CJJTimer timerWithConfiguration:configuration];
+        _timer = [CJJTimerView timerViewWithConfiguration:configuration];
         _timer.delegate = self;
     }
     return _timer;

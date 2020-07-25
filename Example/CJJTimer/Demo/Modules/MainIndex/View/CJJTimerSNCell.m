@@ -10,7 +10,7 @@
 
 @interface CJJTimerSNCell ()
 @property (nonatomic, strong) UILabel *timeL;
-@property (nonatomic, strong) CJJTimer *timer;
+@property (nonatomic, strong) CJJTimerView *timer;
 @end
 
 @implementation CJJTimerSNCell
@@ -75,9 +75,9 @@
     [_timer.layer addSublayer:shape];
 }
 
-- (CJJTimer *)timer{
+- (CJJTimerView *)timer{
     if(!_timer){
-        CJJTimerConfiguration *configuration = [CJJTimerConfiguration configureTimer];
+        CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
         configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+14*60*60];
         configuration.timerViewWidth = 18;
 //        configuration.timerViewHeight = 15;
@@ -89,7 +89,7 @@
         configuration.timerTextLabelColor = [UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1];
         configuration.timerColonLabelFont = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
         configuration.timerColonLabelColor = [UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1];
-        _timer = [CJJTimer timerWithConfiguration:configuration];
+        _timer = [CJJTimerView timerViewWithConfiguration:configuration];
     }
     return _timer;
 }

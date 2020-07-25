@@ -1,5 +1,5 @@
 //
-//  CJJTimer.m
+//  CJJTimerView.m
 //  CJJTimer
 //
 //  Created by JimmyCJJ on 2020/7/21.
@@ -10,12 +10,9 @@
 //  欢迎同行一起交流
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
-//弱化
-#define kWeakSelf(type)  __weak typeof(type) weak##type = type;
-//代码块里面强化，防止丢失
-#define kStrongSelf(type) __strong typeof(type) strong##type = weak##type;
 
-#import "CJJTimer.h"
+#import "CJJTimerView.h"
+#import "CJJTimerMacro.h"
 #import "Masonry.h"
 
 typedef NS_ENUM(NSInteger,CJJTimerViewType){
@@ -24,17 +21,17 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
     CJJTimerView_ColonLabel
 };
 
-@interface CJJTimerConfiguration ()
+@interface CJJTimerViewConfiguration ()
 /// 自动计算timer的宽度
 @property (nonatomic, assign, readwrite) CGFloat timerWidth;
 /// 自动计算timer的高度
 @property (nonatomic, assign, readwrite) CGFloat timerHeight;
 @end
 
-@implementation CJJTimerConfiguration
+@implementation CJJTimerViewConfiguration
 
-+ (instancetype)configureTimer{
-    CJJTimerConfiguration *configuration = [[CJJTimerConfiguration alloc] init];
++ (instancetype)configureTimerView{
+    CJJTimerViewConfiguration *configuration = [[CJJTimerViewConfiguration alloc] init];
     return configuration;
 }
 
@@ -100,20 +97,20 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
 
 @end
 
-#pragma mark -
+#pragma mark - CJJTimerView
 
-static NSArray * CJJTimerObserverKeyPaths() {
-    static NSArray *_CJJTimerObservedKeyPaths = nil;
+static NSArray * CJJTimerViewObserverKeyPaths() {
+    static NSArray *_CJJTimerViewObservedKeyPaths = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _CJJTimerObservedKeyPaths = @[@"timerLastTime",@"timerWidth"];
+        _CJJTimerViewObservedKeyPaths = @[@"timerLastTime",@"timerWidth"];
     });
-    return _CJJTimerObservedKeyPaths;
+    return _CJJTimerViewObservedKeyPaths;
 }
 
-static void *CJJTimerObserverContext = &CJJTimerObserverContext;
+static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 
-@interface CJJTimer ()
+@interface CJJTimerView ()
 @property (nonatomic, strong) UIView *hourV;
 @property (nonatomic, strong) UIView *minV;
 @property (nonatomic, strong) UIView *secV;
@@ -128,17 +125,10 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
 @property (nonatomic, strong) dispatch_source_t dispatchTimer;
 @end
 
-@implementation CJJTimer
+@implementation CJJTimerView
 
-- (void)setHourLastWidth:(CGFloat)hourLastWidth{
-    _hourLastWidth = hourLastWidth;
-    if(_hourLastWidth > self.configuration.timerViewWidth){
-        self.configuration.timerWidth += (_hourLastWidth - self.configuration.timerViewWidth);
-    }
-}
-
-+ (instancetype)timerWithConfiguration:(CJJTimerConfiguration *)configuration{
-    CJJTimer *timer = [[CJJTimer alloc] initWithFrame:CGRectZero];
++ (instancetype)timerViewWithConfiguration:(CJJTimerViewConfiguration *)configuration{
+    CJJTimerView *timer = [[CJJTimerView alloc] initWithFrame:CGRectZero];
     timer.configuration = configuration;
     [timer setUp];
     return timer;
@@ -154,9 +144,9 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
 }
 
 - (void)setObserveValue{
-    for (NSString *keyPath in CJJTimerObserverKeyPaths()) {
+    for (NSString *keyPath in CJJTimerViewObserverKeyPaths()) {
         if([self.configuration respondsToSelector:NSSelectorFromString(keyPath)]){
-            [self.configuration addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:CJJTimerObserverContext];
+            [self.configuration addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:CJJTimerViewObserverContext];
         }
     }
 }
@@ -232,7 +222,7 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
 }
 
 - (void)displayViews:(UIView *)view viewType:(CJJTimerViewType)viewType{
-    CJJTimerConfiguration *configuration = self.configuration;
+    CJJTimerViewConfiguration *configuration = self.configuration;
     switch (viewType) {
         case CJJTimerView_TimerView:
         {
@@ -261,7 +251,7 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
     }
 }
 
-- (void)configureLayout:(CJJTimerLayout)layout{
+- (void)configureLayout:(CJJTimerViewLayout)layout{
     layout(self.configuration.timerWidth, self.configuration.timerHeight);
 }
 
@@ -269,7 +259,7 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == CJJTimerObserverContext) {
+    if (context == CJJTimerViewObserverContext) {
         if([keyPath isEqualToString:@"timerLastTime"]){
             [self startTimer];
         }else if ([keyPath isEqualToString:@"timerWidth"]){
@@ -300,12 +290,21 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
         }
         dispatch_source_cancel(_dispatchTimer);
         _dispatchTimer = nil;
+        
+        _hourL.text = @"00";
+        _minL.text = @"00";
+        _secL.text = @"00";
+        if(_configuration.isTimerHiddenWhenFinished){
+            self.hidden = YES;
+        }else{
+            self.hidden = NO;
+        }
     }
 }
 
 /// 暂停定时器
 - (void)suspendTimer{
-    if(_dispatchTimer){
+    if(_dispatchTimer && !_subspend){
         dispatch_suspend(_dispatchTimer);
         self.subspend = YES;
     }
@@ -313,15 +312,15 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
 
 /// 恢复定时器
 - (void)resumeTimer{
-    if(_dispatchTimer){
+    if(_dispatchTimer && _subspend){
         dispatch_resume(_dispatchTimer);
         _subspend = NO;
     }
 }
 
-/// 重置定时器
-- (void)resetTimer{
-    
+/// 重置定时器（传时间戳）
+- (void)resetTimerWithlastTime:(NSString *)lastTime{
+    self.configuration.timerLastTime = lastTime;
 }
 
 #pragma mark - refresh UI
@@ -339,15 +338,7 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
     NSInteger lastSecond = compareDate.second;
     
     if(lastHour < 0 || lastMinute < 0 || lastSecond < 0 || (lastHour <= 0 && lastMinute <= 0 && lastSecond <= 0) ){
-        self.hourL.text = @"00";
-        self.minL.text = @"00";
-        self.secL.text = @"00";
         [self stopTimer];
-        if(self.configuration.isTimerHiddenWhenFinished){
-            self.hidden = YES;
-        }else{
-            self.hidden = NO;
-        }
         
         if([self.delegate respondsToSelector:@selector(timerFinished:)]){
             [self.delegate timerFinished:self];
@@ -466,12 +457,21 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
     return rect.size.width;
 }
 
+#pragma mark - setter
+
+- (void)setHourLastWidth:(CGFloat)hourLastWidth{
+    _hourLastWidth = hourLastWidth;
+    if(_hourLastWidth > self.configuration.timerViewWidth){
+        self.configuration.timerWidth += (_hourLastWidth - self.configuration.timerViewWidth);
+    }
+}
+
 #pragma mark - lazy
 
 - (dispatch_source_t)dispatchTimer{
     if(!_dispatchTimer){
         kWeakSelf(self)
-        _dispatchTimer = CreateDispatchTimer(1.0*NSEC_PER_SEC, 0, dispatch_get_global_queue(0, 0), ^{
+        _dispatchTimer = CJJTimerViewCreateDispatchTimer(1.0*NSEC_PER_SEC, 0, dispatch_get_global_queue(0, 0), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 kStrongSelf(self)
                 [strongself refreshView];
@@ -481,10 +481,10 @@ static void *CJJTimerObserverContext = &CJJTimerObserverContext;
     return _dispatchTimer;
 }
 
-dispatch_source_t CreateDispatchTimer(uint64_t interval,
-                                      uint64_t leeway,
-                                      dispatch_queue_t queue,
-                                      dispatch_block_t block)
+dispatch_source_t CJJTimerViewCreateDispatchTimer(uint64_t interval,
+                                                  uint64_t leeway,
+                                                  dispatch_queue_t queue,
+                                                  dispatch_block_t block)
 {
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
                                                      0, 0, queue);
@@ -565,13 +565,12 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval,
 
 #pragma mark - deadline
 
-- (void)dealloc
-{
+- (void)dealloc{
     NSLog(@"CJJTimer销毁");
     [self stopTimer];
-    for (NSString *keyPath in CJJTimerObserverKeyPaths()) {
+    for (NSString *keyPath in CJJTimerViewObserverKeyPaths()) {
         if([self.configuration respondsToSelector:NSSelectorFromString(keyPath)]){
-            [self.configuration removeObserver:self forKeyPath:keyPath context:CJJTimerObserverContext];
+            [self.configuration removeObserver:self forKeyPath:keyPath context:CJJTimerViewObserverContext];
         }
     }
 }

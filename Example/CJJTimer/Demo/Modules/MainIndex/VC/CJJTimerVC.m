@@ -13,6 +13,7 @@
 #import "CJJTimerJDCell.h"
 #import "CJJTimerSNCell.h"
 #import "CJJTimerPDDCell.h"
+#import "CJJTimerSMSCell.h"
 
 @interface CJJTimerVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -57,7 +58,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 100;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -98,8 +99,11 @@
     }else if(indexPath.section == 2){
         CJJTimerSNCell* cell = [CJJTimerSNCell makeCellWithTableView:tableView];
         return cell;
-    }else{
+    }else if(indexPath.section == 3){
         CJJTimerPDDCell *cell = [CJJTimerPDDCell makeCellWithTableView:tableView];
+        return cell;
+    }else{
+        CJJTimerSMSCell *cell = [CJJTimerSMSCell makeCellWithTableView:tableView];
         return cell;
     }
     
@@ -122,7 +126,10 @@
         CJJTimerModel *model4 = [CJJTimerModel new];
         model4.name = @"拼多多倒计时";
         
-        [_timerArr addObjectsFromArray:@[model1,model2,model3,model4]];
+        CJJTimerModel *model5 = [CJJTimerModel new];
+        model5.name = @"短信倒计时";
+        
+        [_timerArr addObjectsFromArray:@[model1,model2,model3,model4,model5]];
     }
     return _timerArr;
 }
