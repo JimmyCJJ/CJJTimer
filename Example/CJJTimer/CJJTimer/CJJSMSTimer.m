@@ -100,7 +100,9 @@
             //倒计时中的按钮显示 根据自己需求在block里设置
             self.btn.enabled = NO;
             if(!self.custom){
-                [self.btn setTitle:[NSString stringWithFormat:@"%@(%ds)",self.ingTitle,self.timeOut] forState:UIControlStateNormal];
+                if(self.ingTitle.length > 0){
+                    [self.btn setTitle:[NSString stringWithFormat:@"%@(%ds)",self.ingTitle,self.timeOut] forState:UIControlStateNormal];                    
+                }
                 [self.btn setTitleColor:self.ingTitleColor forState:UIControlStateNormal];
             }
             if(self.ingBlock){
