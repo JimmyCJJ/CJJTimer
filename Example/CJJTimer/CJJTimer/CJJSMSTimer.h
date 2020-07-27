@@ -10,41 +10,38 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^CJJSMSTimerBlock)(void);
+typedef void (^CJJSMSTimerVoidBlock)(void);
+typedef void (^CJJSMSTimerSecBlock)(int sec);
 
 @interface CJJSMSTimer : NSObject
 
-/// 开启倒计时
+/// 开启倒计时 - 完全自定义回调
 /// @param btn 传入按钮对象
 /// @param timeOut 传入倒数总时间
-/// @param finishedTitle 倒数结束后的标题
-/// @param finishedTitleColor 倒数结束后的标题颜色
-/// @param ingTitle 倒数进行时的标题
-/// @param ingTitleColor 倒数进行时的标题颜色
-+ (instancetype)timerStartCountdownWithBtn:(UIButton *)btn
-                               timeOut:(int)timeOut
-                          finishedTitle:(NSString *)finishedTitle
-                      finishedTitleColor:(UIColor *)finishedTitleColor
-                               ingTitle:(NSString *)ingTitle
-                           ingTitleColor:(UIColor *)ingTitleColor;
-
-/// 开启倒计时
-/// @param btn 传入按钮对象
-/// @param timeOut 传入倒数总时间
-/// @param finishedTitle 倒数结束后的标题
-/// @param finishedTitleColor 倒数结束后的标题颜色
-/// @param ingTitle 倒数进行时的标题
-/// @param ingTitleColor 倒数进行时的标题颜色
-/// @param finishedBlock 倒数结束后的设置
 /// @param ingBlock 倒数进行时的设置
+/// @param finishedBlock 倒数结束后的设置
 + (instancetype)timerStartCountdownWithBtn:(UIButton *)btn
                                timeOut:(int)timeOut
-                          finishedTitle:(NSString *)finishedTitle
-                      finishedTitleColor:(UIColor *)finishedTitleColor
+                    titleIngSettingBlock:(CJJSMSTimerSecBlock __nullable)ingBlock
+                  titleFinishSettingBlock:(CJJSMSTimerVoidBlock __nullable)finishedBlock;
+
+/// 开启倒计时 - 默认回调
+/// @param btn 传入按钮对象
+/// @param timeOut 传入倒数总时间
+/// @param ingTitle 倒数进行时的标题
+/// @param ingTitleColor 倒数进行时的标题颜色
+/// @param finishedTitle 倒数结束后的标题
+/// @param finishedTitleColor 倒数结束后的标题颜色
+/// @param ingBlock 倒数进行时的设置
+/// @param finishedBlock 倒数结束后的设置
++ (instancetype)timerStartCountdownWithBtn:(UIButton *)btn
+                               timeOut:(int)timeOut
                                ingTitle:(NSString *)ingTitle
                            ingTitleColor:(UIColor *)ingTitleColor
-                   titleFinishSettingBlock:(CJJSMSTimerBlock __nullable)finishedBlock
-                      titleIngSettingBlock:(CJJSMSTimerBlock __nullable)ingBlock;
+                           finishedTitle:(NSString *)finishedTitle
+                       finishedTitleColor:(UIColor *)finishedTitleColor
+                      titleIngSettingBlock:(CJJSMSTimerSecBlock __nullable)ingBlock
+                    titleFinishSettingBlock:(CJJSMSTimerVoidBlock __nullable)finishedBlock;
 
 
 /// 销毁定时器（如果想手动控制销毁的时机请调用此方法，否则自动销毁）

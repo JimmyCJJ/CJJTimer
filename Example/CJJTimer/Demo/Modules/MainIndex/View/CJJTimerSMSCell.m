@@ -47,11 +47,27 @@
 }
 
 - (void)startCountDownAction:(UIButton *)btn{
-    self.timer = [CJJSMSTimer timerStartCountdownWithBtn:btn timeOut:6 finishedTitle:@"获取验证码" finishedTitleColor:[UIColor blueColor] ingTitle:@"重新获取" ingTitleColor:[UIColor grayColor] titleFinishSettingBlock:^{
-        btn.layer.borderColor = [UIColor blueColor].CGColor;
-    } titleIngSettingBlock:^{
-        btn.layer.borderColor = [UIColor grayColor].CGColor;
-    }];
+    BOOL isCustom = NO;
+    
+    //block设置倒计时前后UI变化
+    if(isCustom){
+        self.timer = [CJJSMSTimer timerStartCountdownWithBtn:btn timeOut:6 titleIngSettingBlock:^(int sec) {
+            [btn setTitle:[NSString stringWithFormat:@"%ds",sec] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            btn.layer.borderColor = [UIColor grayColor].CGColor;
+        } titleFinishSettingBlock:^{
+            [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            btn.layer.borderColor = [UIColor blueColor].CGColor;
+        }];
+    }else{
+        //默认设置方法
+        self.timer = [CJJSMSTimer timerStartCountdownWithBtn:btn timeOut:6 ingTitle:@"重新获取" ingTitleColor:[UIColor grayColor] finishedTitle:@"获取验证码" finishedTitleColor:[UIColor blueColor] titleIngSettingBlock:^(int sec) {
+            btn.layer.borderColor = [UIColor grayColor].CGColor;
+        } titleFinishSettingBlock:^{
+            btn.layer.borderColor = [UIColor blueColor].CGColor;
+        }];
+    }
     
 }
 

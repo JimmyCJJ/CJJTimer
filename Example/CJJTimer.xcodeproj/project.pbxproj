@@ -10,7 +10,6 @@
 		0A1A7CD124CA7C3100227F78 /* CJJTimerJDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A7CD024CA7C3100227F78 /* CJJTimerJDCell.m */; };
 		0A1A7CD424CA7C3D00227F78 /* CJJTimerPDDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A7CD324CA7C3D00227F78 /* CJJTimerPDDCell.m */; };
 		0AA36C4624CBD73A0059DC26 /* CJJTimerSMSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA36C4524CBD73A0059DC26 /* CJJTimerSMSCell.m */; };
-		0AA36C4924CBD7DC0059DC26 /* CJJSMSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA36C4724CBD7DC0059DC26 /* CJJSMSTimer.m */; };
 		0AA58A2624C9359C004CD5A7 /* CJJTimerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA58A2524C9359C004CD5A7 /* CJJTimerVC.m */; };
 		0AA58A2F24C98646004CD5A7 /* CJJTimerTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA58A2E24C98646004CD5A7 /* CJJTimerTBCell.m */; };
 		0AA58A3224C986F1004CD5A7 /* CJJTimerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA58A3124C986F1004CD5A7 /* CJJTimerModel.m */; };
@@ -19,7 +18,8 @@
 		0AB6420624CADDE800A4F567 /* CJJTimerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB6420524CADDE800A4F567 /* CJJTimerHeaderView.m */; };
 		0AB6420C24CAE1A500A4F567 /* NSObject+TimeExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB6420B24CAE1A500A4F567 /* NSObject+TimeExtension.m */; };
 		0AD1E5E924B0274000A7E631 /* CJJIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1E5DF24B0273F00A7E631 /* CJJIndexVC.m */; };
-		0AE75A2224C8424900A629D3 /* CJJTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE75A2124C8424900A629D3 /* CJJTimerView.m */; };
+		0AD6617B24CE9C50005A8C06 /* CJJTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6617524CE9C50005A8C06 /* CJJTimerView.m */; };
+		0AD6617C24CE9C50005A8C06 /* CJJSMSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6617A24CE9C50005A8C06 /* CJJSMSTimer.m */; };
 		0AE8248224AB178200A95268 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8248124AB178200A95268 /* AppDelegate.m */; };
 		0AE8248B24AB178200A95268 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8248924AB178200A95268 /* Main.storyboard */; };
 		0AE8248D24AB178300A95268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8248C24AB178300A95268 /* Assets.xcassets */; };
@@ -54,10 +54,6 @@
 		0A1A7CD324CA7C3D00227F78 /* CJJTimerPDDCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerPDDCell.m; sourceTree = "<group>"; };
 		0AA36C4424CBD73A0059DC26 /* CJJTimerSMSCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerSMSCell.h; sourceTree = "<group>"; };
 		0AA36C4524CBD73A0059DC26 /* CJJTimerSMSCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerSMSCell.m; sourceTree = "<group>"; };
-		0AA36C4724CBD7DC0059DC26 /* CJJSMSTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJJSMSTimer.m; sourceTree = "<group>"; };
-		0AA36C4824CBD7DC0059DC26 /* CJJSMSTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJSMSTimer.h; sourceTree = "<group>"; };
-		0AA36C4E24CBDB060059DC26 /* CJJTimerMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerMacro.h; sourceTree = "<group>"; };
-		0AA36C4F24CBDD680059DC26 /* CJJTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimer.h; sourceTree = "<group>"; };
 		0AA58A2424C9359C004CD5A7 /* CJJTimerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerVC.h; sourceTree = "<group>"; };
 		0AA58A2524C9359C004CD5A7 /* CJJTimerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerVC.m; sourceTree = "<group>"; };
 		0AA58A2D24C98646004CD5A7 /* CJJTimerTBCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerTBCell.h; sourceTree = "<group>"; };
@@ -74,8 +70,12 @@
 		0AB6420B24CAE1A500A4F567 /* NSObject+TimeExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TimeExtension.m"; sourceTree = "<group>"; };
 		0AD1E5DF24B0273F00A7E631 /* CJJIndexVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJJIndexVC.m; sourceTree = "<group>"; };
 		0AD1E5E024B0273F00A7E631 /* CJJIndexVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJIndexVC.h; sourceTree = "<group>"; };
-		0AE75A2024C8424900A629D3 /* CJJTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJTimerView.h; sourceTree = "<group>"; };
-		0AE75A2124C8424900A629D3 /* CJJTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJJTimerView.m; sourceTree = "<group>"; };
+		0AD6617524CE9C50005A8C06 /* CJJTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJJTimerView.m; sourceTree = "<group>"; };
+		0AD6617624CE9C50005A8C06 /* CJJTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJTimerView.h; sourceTree = "<group>"; };
+		0AD6617724CE9C50005A8C06 /* CJJTimerMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJTimerMacro.h; sourceTree = "<group>"; };
+		0AD6617824CE9C50005A8C06 /* CJJSMSTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJSMSTimer.h; sourceTree = "<group>"; };
+		0AD6617924CE9C50005A8C06 /* CJJTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJJTimer.h; sourceTree = "<group>"; };
+		0AD6617A24CE9C50005A8C06 /* CJJSMSTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJJSMSTimer.m; sourceTree = "<group>"; };
 		0AE75A2524C843DA00A629D3 /* Marcos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marcos.h; sourceTree = "<group>"; };
 		0AE8247D24AB178200A95268 /* CJJTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CJJTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE8248024AB178200A95268 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -210,12 +210,12 @@
 		0AE75A1F24C8424900A629D3 /* CJJTimer */ = {
 			isa = PBXGroup;
 			children = (
-				0AA36C4F24CBDD680059DC26 /* CJJTimer.h */,
-				0AE75A2024C8424900A629D3 /* CJJTimerView.h */,
-				0AE75A2124C8424900A629D3 /* CJJTimerView.m */,
-				0AA36C4824CBD7DC0059DC26 /* CJJSMSTimer.h */,
-				0AA36C4724CBD7DC0059DC26 /* CJJSMSTimer.m */,
-				0AA36C4E24CBDB060059DC26 /* CJJTimerMacro.h */,
+				0AD6617924CE9C50005A8C06 /* CJJTimer.h */,
+				0AD6617724CE9C50005A8C06 /* CJJTimerMacro.h */,
+				0AD6617624CE9C50005A8C06 /* CJJTimerView.h */,
+				0AD6617524CE9C50005A8C06 /* CJJTimerView.m */,
+				0AD6617824CE9C50005A8C06 /* CJJSMSTimer.h */,
+				0AD6617A24CE9C50005A8C06 /* CJJSMSTimer.m */,
 			);
 			path = CJJTimer;
 			sourceTree = "<group>";
@@ -512,18 +512,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD6617B24CE9C50005A8C06 /* CJJTimerView.m in Sources */,
 				0AD1E5E924B0274000A7E631 /* CJJIndexVC.m in Sources */,
 				0A1A7CD124CA7C3100227F78 /* CJJTimerJDCell.m in Sources */,
 				0A1A7CD424CA7C3D00227F78 /* CJJTimerPDDCell.m in Sources */,
 				0AB6420024CAD4BB00A4F567 /* UIView+PlatformCornerRadius.m in Sources */,
-				0AE75A2224C8424900A629D3 /* CJJTimerView.m in Sources */,
 				0AB6420C24CAE1A500A4F567 /* NSObject+TimeExtension.m in Sources */,
 				0AA58A2624C9359C004CD5A7 /* CJJTimerVC.m in Sources */,
 				0AA58A3224C986F1004CD5A7 /* CJJTimerModel.m in Sources */,
 				0AB6420624CADDE800A4F567 /* CJJTimerHeaderView.m in Sources */,
 				0AA58A3524C99645004CD5A7 /* CJJTimerSNCell.m in Sources */,
+				0AD6617C24CE9C50005A8C06 /* CJJSMSTimer.m in Sources */,
 				0AA58A2F24C98646004CD5A7 /* CJJTimerTBCell.m in Sources */,
-				0AA36C4924CBD7DC0059DC26 /* CJJSMSTimer.m in Sources */,
 				0AE8248224AB178200A95268 /* AppDelegate.m in Sources */,
 				0AE8249324AB178300A95268 /* main.m in Sources */,
 				0AA36C4624CBD73A0059DC26 /* CJJTimerSMSCell.m in Sources */,
