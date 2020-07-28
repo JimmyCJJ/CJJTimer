@@ -4,3 +4,4 @@
 ```
 pod 'CJJTimer'
 ```
+[简书地址](https://www.jianshu.com/p/38a1f6329820)
