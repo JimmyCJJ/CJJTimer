@@ -103,7 +103,7 @@ static NSArray * CJJTimerViewObserverKeyPaths() {
     static NSArray *_CJJTimerViewObservedKeyPaths = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _CJJTimerViewObservedKeyPaths = @[@"timerLastTime",@"timerWidth"];
+        _CJJTimerViewObservedKeyPaths = @[@"timerLastTime",@"timerWidth",@"timerViewBackgroundColor",@"timerViewCornerRadius",@"timerViewShadowColor",@"timerViewShadowOffset",@"timerViewShadowOpacity",@"timerViewShadowRadius",@"timerTextLabelColor",@"timerColonLabelColor",@"timerTextLabelFont",@"timerColonLabelFont"];
     });
     return _CJJTimerViewObservedKeyPaths;
 }
@@ -137,6 +137,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 - (void)setUp{
     [self setObserveValue];
     [self setViews];
+    [self setDisplay];
     [self setLayout];
     if(self.configuration.isTimerAutoStart){
         [self startTimer];
@@ -160,7 +161,9 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     [self.secV addSubview:self.secL];
     [self addSubview:self.firstColonL];
     [self addSubview:self.secondColonL];
-    
+}
+
+- (void)setDisplay{
     [self displayViews:self.hourV viewType:CJJTimerView_TimerView];
     [self displayViews:self.minV viewType:CJJTimerView_TimerView];
     [self displayViews:self.secV viewType:CJJTimerView_TimerView];
@@ -266,6 +269,44 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(self.configuration.timerWidth);
             }];
+        }else if ([keyPath isEqualToString:@"timerViewBackgroundColor"]){
+            self.hourV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
+            self.minV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
+            self.secV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
+        }else if ([keyPath isEqualToString:@"timerViewCornerRadius"]){
+            self.hourV.layer.cornerRadius = self.configuration.timerViewCornerRadius;
+            self.minV.layer.cornerRadius = self.configuration.timerViewCornerRadius;
+            self.secV.layer.cornerRadius = self.configuration.timerViewCornerRadius;
+        }else if ([keyPath isEqualToString:@"timerViewShadowColor"]){
+            self.hourV.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
+            self.minV.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
+            self.secV.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
+        }else if ([keyPath isEqualToString:@"timerViewShadowOffset"]){
+            self.hourV.layer.shadowOffset = self.configuration.timerViewShadowOffset;
+            self.minV.layer.shadowOffset = self.configuration.timerViewShadowOffset;
+            self.secV.layer.shadowOffset = self.configuration.timerViewShadowOffset;
+        }else if ([keyPath isEqualToString:@"timerViewShadowOpacity"]){
+            self.hourV.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
+            self.minV.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
+            self.secV.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
+        }else if ([keyPath isEqualToString:@"timerViewShadowRadius"]){
+            self.hourV.layer.shadowRadius = self.configuration.timerViewShadowRadius;
+            self.minV.layer.shadowRadius = self.configuration.timerViewShadowRadius;
+            self.secV.layer.shadowRadius = self.configuration.timerViewShadowRadius;
+        }else if ([keyPath isEqualToString:@"timerTextLabelColor"]){
+            self.hourL.textColor = self.configuration.timerTextLabelColor;
+            self.minL.textColor = self.configuration.timerTextLabelColor;
+            self.secL.textColor = self.configuration.timerTextLabelColor;
+        }else if ([keyPath isEqualToString:@"timerColonLabelColor"]){
+            self.firstColonL.textColor = self.configuration.timerColonLabelColor;
+            self.secondColonL.textColor = self.configuration.timerColonLabelColor;
+        }else if ([keyPath isEqualToString:@"timerTextLabelFont"]){
+            self.hourL.font = self.configuration.timerTextLabelFont;
+            self.minL.font = self.configuration.timerTextLabelFont;
+            self.secL.font = self.configuration.timerTextLabelFont;
+        }else if ([keyPath isEqualToString:@"timerColonLabelFont"]){
+            self.firstColonL.font = self.configuration.timerColonLabelFont;
+            self.secondColonL.font = self.configuration.timerColonLabelFont;
         }
     }
 }
