@@ -12,7 +12,7 @@
 pod 'CJJTimer'
 ```
 
-下图是demo所呈现出来的几种效果，还有更多的效果等你定制～
+下图是demo所呈现出来的几种效果，还有更多的效果等你定制～  
 ![定时器效果](https://github.com/JimmyCJJ/CJJTimer/blob/master/Example/CJJTimer/Demo/Resource/demo.png)
 
 [简书地址](https://www.jianshu.com/p/38a1f6329820)
