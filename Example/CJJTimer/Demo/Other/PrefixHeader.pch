@@ -17,6 +17,5 @@
 //Third-Party Library
 #import "CJJRouter.h"
 #import "Masonry.h"
-#import "SDWebImage.h"
 
 #endif /* PrefixHeader_pch */

@@ -15,6 +15,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, CJJTimerViewMode){
+    CJJTimerViewMode_HMS = 0,//时分秒(默认)
+    CJJTimerViewMode_HM,//时分
+    CJJTimerViewMode_MS,//分秒
+};
+
 typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 
 @class CJJTimerView,CJJTimerViewConfiguration;
@@ -63,7 +69,11 @@ typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 
 @interface CJJTimerViewConfiguration : NSObject
 
+/// 初始化方法（默认CJJTimerViewMode_HMS）
 + (instancetype)configureTimerView;
+
+/// 初始化方法（自定义mode）
++ (instancetype)configureTimerViewWithMode:(CJJTimerViewMode)mode;
 
 #pragma mark - Function Config
 /// 倒数截止的时间（传时间戳，必传）
@@ -79,7 +89,7 @@ typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 /// 时间块的高度，默认22
 @property (nonatomic, assign) CGFloat timerViewHeight;
 /// 块与冒号之间的间隔，默认4
-@property (nonatomic, assign) CGFloat timerViewInset;
+@property (nonatomic, assign) CGFloat timerViewHorizontalInset;
 /// 冒号的宽度，默认4
 @property (nonatomic, assign) CGFloat timerColonWidth;
 /// 内边距，默认 UIEdgeInsetsZero
@@ -104,10 +114,12 @@ typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 @property (nonatomic, strong) UIFont *timerTextLabelFont;
 /// 冒号字体
 @property (nonatomic, strong) UIFont *timerColonLabelFont;
-/// 1.默认冒号，可改成其他，例如-，时等
-@property (nonatomic, copy) NSString *timerColonFirstLabelText;
-/// 2.默认冒号，可改成其他，例如-，时等
-@property (nonatomic, strong) NSString *timerColonSecondLabelText;
+/// 时 默认冒号，可改成其他，例如-，时等
+@property (nonatomic, copy) NSString *timerColonHourLabelText;
+/// 分 默认冒号，可改成其他，例如-，  分等
+@property (nonatomic, strong) NSString *timerColonMinLabelText;
+/// 秒 默认空字符串，可改成其他，例如-，秒等
+@property (nonatomic, strong) NSString *timerColonSecLabelText;
 
 /// 自动计算timer的宽度
 @property (nonatomic, assign, readonly) CGFloat timerWidth;

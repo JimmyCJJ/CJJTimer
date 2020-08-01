@@ -45,7 +45,7 @@
 
 - (void)setLayout{
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(20);
+        make.centerX.mas_equalTo(-40);
         make.centerY.mas_equalTo(0);
     }];
     
@@ -58,18 +58,13 @@
     }];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    self.timer.configuration.timerColonFirstLabelText = @"分";
-    self.timer.configuration.timerColonSecondLabelText = @"秒";
-    self.timer.configuration.timerColonWidth = 20;
-}
-
 - (CJJTimerView *)timer{
     if(!_timer){
         CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
+        configuration.timerHiddenWhenFinished = NO;
         configuration.timerViewWidth = 15;
         configuration.timerViewHeight = 16;
-        configuration.timerViewInset = 2;
+        configuration.timerViewHorizontalInset = 2;
         configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+30];
 //        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+13*60*60];
         configuration.timerViewCornerRadius = 3;

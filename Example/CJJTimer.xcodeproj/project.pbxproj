@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0A1A7CD124CA7C3100227F78 /* CJJTimerJDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A7CD024CA7C3100227F78 /* CJJTimerJDCell.m */; };
 		0A1A7CD424CA7C3D00227F78 /* CJJTimerPDDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A7CD324CA7C3D00227F78 /* CJJTimerPDDCell.m */; };
+		0A35C87424D5556900EEA571 /* CJJTimerHMSColonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A35C87324D5556900EEA571 /* CJJTimerHMSColonCell.m */; };
+		0A35C87724D56EFA00EEA571 /* CJJTimerHMColonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A35C87624D56EFA00EEA571 /* CJJTimerHMColonCell.m */; };
+		0A35C87A24D56F0D00EEA571 /* CJJTimerMSColonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A35C87924D56F0D00EEA571 /* CJJTimerMSColonCell.m */; };
 		0AA36C4624CBD73A0059DC26 /* CJJTimerSMSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA36C4524CBD73A0059DC26 /* CJJTimerSMSCell.m */; };
 		0AA58A2624C9359C004CD5A7 /* CJJTimerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA58A2524C9359C004CD5A7 /* CJJTimerVC.m */; };
 		0AA58A2F24C98646004CD5A7 /* CJJTimerTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA58A2E24C98646004CD5A7 /* CJJTimerTBCell.m */; };
@@ -52,6 +55,12 @@
 		0A1A7CD024CA7C3100227F78 /* CJJTimerJDCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerJDCell.m; sourceTree = "<group>"; };
 		0A1A7CD224CA7C3D00227F78 /* CJJTimerPDDCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerPDDCell.h; sourceTree = "<group>"; };
 		0A1A7CD324CA7C3D00227F78 /* CJJTimerPDDCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerPDDCell.m; sourceTree = "<group>"; };
+		0A35C87224D5556900EEA571 /* CJJTimerHMSColonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerHMSColonCell.h; sourceTree = "<group>"; };
+		0A35C87324D5556900EEA571 /* CJJTimerHMSColonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerHMSColonCell.m; sourceTree = "<group>"; };
+		0A35C87524D56EFA00EEA571 /* CJJTimerHMColonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerHMColonCell.h; sourceTree = "<group>"; };
+		0A35C87624D56EFA00EEA571 /* CJJTimerHMColonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerHMColonCell.m; sourceTree = "<group>"; };
+		0A35C87824D56F0D00EEA571 /* CJJTimerMSColonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerMSColonCell.h; sourceTree = "<group>"; };
+		0A35C87924D56F0D00EEA571 /* CJJTimerMSColonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerMSColonCell.m; sourceTree = "<group>"; };
 		0AA36C4424CBD73A0059DC26 /* CJJTimerSMSCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerSMSCell.h; sourceTree = "<group>"; };
 		0AA36C4524CBD73A0059DC26 /* CJJTimerSMSCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerSMSCell.m; sourceTree = "<group>"; };
 		0AA58A2424C9359C004CD5A7 /* CJJTimerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerVC.h; sourceTree = "<group>"; };
@@ -179,12 +188,18 @@
 				0AB6420524CADDE800A4F567 /* CJJTimerHeaderView.m */,
 				0AA58A2D24C98646004CD5A7 /* CJJTimerTBCell.h */,
 				0AA58A2E24C98646004CD5A7 /* CJJTimerTBCell.m */,
-				0A1A7CCF24CA7C3100227F78 /* CJJTimerJDCell.h */,
 				0A1A7CD024CA7C3100227F78 /* CJJTimerJDCell.m */,
+				0A1A7CCF24CA7C3100227F78 /* CJJTimerJDCell.h */,
 				0AA58A3324C99645004CD5A7 /* CJJTimerSNCell.h */,
 				0AA58A3424C99645004CD5A7 /* CJJTimerSNCell.m */,
 				0A1A7CD224CA7C3D00227F78 /* CJJTimerPDDCell.h */,
 				0A1A7CD324CA7C3D00227F78 /* CJJTimerPDDCell.m */,
+				0A35C87224D5556900EEA571 /* CJJTimerHMSColonCell.h */,
+				0A35C87324D5556900EEA571 /* CJJTimerHMSColonCell.m */,
+				0A35C87524D56EFA00EEA571 /* CJJTimerHMColonCell.h */,
+				0A35C87624D56EFA00EEA571 /* CJJTimerHMColonCell.m */,
+				0A35C87824D56F0D00EEA571 /* CJJTimerMSColonCell.h */,
+				0A35C87924D56F0D00EEA571 /* CJJTimerMSColonCell.m */,
 				0AA36C4424CBD73A0059DC26 /* CJJTimerSMSCell.h */,
 				0AA36C4524CBD73A0059DC26 /* CJJTimerSMSCell.m */,
 			);
@@ -332,7 +347,6 @@
 				0AE8247A24AB178200A95268 /* Frameworks */,
 				0AE8247B24AB178200A95268 /* Resources */,
 				355929CAE3CE0A6C938F6A24 /* [CP] Embed Pods Frameworks */,
-				C0D540C5071661C2AB9D294E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -488,23 +502,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C0D540C5071661C2AB9D294E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CJJTimer/Pods-CJJTimer-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CJJTimer/Pods-CJJTimer-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CJJTimer/Pods-CJJTimer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -514,8 +511,10 @@
 			files = (
 				0AD6617B24CE9C50005A8C06 /* CJJTimerView.m in Sources */,
 				0AD1E5E924B0274000A7E631 /* CJJIndexVC.m in Sources */,
+				0A35C87424D5556900EEA571 /* CJJTimerHMSColonCell.m in Sources */,
 				0A1A7CD124CA7C3100227F78 /* CJJTimerJDCell.m in Sources */,
 				0A1A7CD424CA7C3D00227F78 /* CJJTimerPDDCell.m in Sources */,
+				0A35C87724D56EFA00EEA571 /* CJJTimerHMColonCell.m in Sources */,
 				0AB6420024CAD4BB00A4F567 /* UIView+PlatformCornerRadius.m in Sources */,
 				0AB6420C24CAE1A500A4F567 /* NSObject+TimeExtension.m in Sources */,
 				0AA58A2624C9359C004CD5A7 /* CJJTimerVC.m in Sources */,
@@ -525,6 +524,7 @@
 				0AD6617C24CE9C50005A8C06 /* CJJSMSTimer.m in Sources */,
 				0AA58A2F24C98646004CD5A7 /* CJJTimerTBCell.m in Sources */,
 				0AE8248224AB178200A95268 /* AppDelegate.m in Sources */,
+				0A35C87A24D56F0D00EEA571 /* CJJTimerMSColonCell.m in Sources */,
 				0AE8249324AB178300A95268 /* main.m in Sources */,
 				0AA36C4624CBD73A0059DC26 /* CJJTimerSMSCell.m in Sources */,
 			);

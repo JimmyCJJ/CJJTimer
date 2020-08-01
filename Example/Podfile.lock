@@ -1,56 +1,24 @@
 PODS:
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
-    - AFNetworking/NSURLSession
   - CJJRouter (1.0.8)
   - LookinServer (1.0.0)
   - Masonry (1.1.0)
-  - MJRefresh (3.4.3)
-  - SDWebImage (5.8.1):
-    - SDWebImage/Core (= 5.8.1)
-  - SDWebImage/Core (5.8.1)
-  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
-  - AFNetworking
   - CJJRouter
   - LookinServer
   - Masonry
-  - MJRefresh
-  - SDWebImage
-  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
-    - AFNetworking
     - CJJRouter
     - LookinServer
     - Masonry
-    - MJRefresh
-    - SDWebImage
-    - SVProgressHUD
 
 SPEC CHECKSUMS:
-  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   CJJRouter: 012c8adcee44cab68a7b47cd36bbc5f814ec0243
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
-  SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 80cc9a1d7b0543b2482e09487aba24d3919ae59f
+PODFILE CHECKSUM: 305a9ed9e0d4e03feeed454c8927bc1628c996dd
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

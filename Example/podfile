@@ -4,10 +4,6 @@
 target 'CJJTimer' do
 
 pod 'CJJRouter'
-pod 'SDWebImage'
 pod 'Masonry'
-pod 'AFNetworking'
-pod 'SVProgressHUD'
-pod 'MJRefresh'
 pod 'LookinServer'
 end

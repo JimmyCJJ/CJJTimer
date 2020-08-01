@@ -46,8 +46,8 @@
 
 - (void)setLayout{
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(20);
         make.centerY.mas_equalTo(0);
+        make.centerX.mas_equalTo(-50);
     }];
     
     [self.timer configureLayout:^(CGFloat timerWidth, CGFloat timerHeight) {

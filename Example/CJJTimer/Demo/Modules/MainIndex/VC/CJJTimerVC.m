@@ -13,6 +13,9 @@
 #import "CJJTimerJDCell.h"
 #import "CJJTimerSNCell.h"
 #import "CJJTimerPDDCell.h"
+#import "CJJTimerHMSColonCell.h"
+#import "CJJTimerHMColonCell.h"
+#import "CJJTimerMSColonCell.h"
 #import "CJJTimerSMSCell.h"
 
 @interface CJJTimerVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -58,7 +61,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    if(indexPath.section == 3){
+        return 90;
+    }
+    return 60;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -102,6 +108,15 @@
     }else if(indexPath.section == 3){
         CJJTimerPDDCell *cell = [CJJTimerPDDCell makeCellWithTableView:tableView];
         return cell;
+    }else if(indexPath.section == 4){
+        CJJTimerHMSColonCell *cell = [CJJTimerHMSColonCell makeCellWithTableView:tableView];
+        return cell;
+    }else if(indexPath.section == 5){
+        CJJTimerHMColonCell *cell = [CJJTimerHMColonCell makeCellWithTableView:tableView];
+        return cell;
+    }else if(indexPath.section == 6){
+        CJJTimerMSColonCell *cell = [CJJTimerMSColonCell makeCellWithTableView:tableView];
+        return cell;
     }else{
         CJJTimerSMSCell *cell = [CJJTimerSMSCell makeCellWithTableView:tableView];
         return cell;
@@ -127,9 +142,18 @@
         model4.name = @"拼多多倒计时";
         
         CJJTimerModel *model5 = [CJJTimerModel new];
-        model5.name = @"短信倒计时";
+        model5.name = @"时分秒倒计时";
         
-        [_timerArr addObjectsFromArray:@[model1,model2,model3,model4,model5]];
+        CJJTimerModel *model6 = [CJJTimerModel new];
+        model6.name = @"时分倒计时";
+        
+        CJJTimerModel *model7 = [CJJTimerModel new];
+        model7.name = @"分秒倒计时";
+        
+        CJJTimerModel *model8 = [CJJTimerModel new];
+        model8.name = @"短信倒计时";
+        
+        [_timerArr addObjectsFromArray:@[model1,model2,model3,model4,model5,model6,model7,model8]];
     }
     return _timerArr;
 }

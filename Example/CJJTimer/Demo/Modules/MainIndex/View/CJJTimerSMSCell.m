@@ -40,9 +40,9 @@
 
 - (void)setLayout{
     [_codeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(20);
-        make.left.mas_equalTo(15);
-        make.size.mas_equalTo(CGSizeMake(100, 40));
+//        make.top.mas_equalTo(20);
+        make.center.mas_equalTo(0);
+        make.size.mas_equalTo(CGSizeMake(120, 40));
     }];
 }
 

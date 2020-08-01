@@ -72,7 +72,7 @@
     }];
     
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(20);
+        make.centerX.mas_equalTo(-30);
         make.top.mas_equalTo(10);
         make.height.mas_equalTo(18);
     }];
@@ -124,7 +124,7 @@
         configuration.timerAutoStart = NO;
         configuration.timerViewWidth = 14;
         configuration.timerViewHeight = 16;
-        configuration.timerViewInset = 0;
+        configuration.timerViewHorizontalInset = 0;
         configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+15*60*60];
         configuration.timerViewCornerRadius = 3;
         configuration.timerViewBackgroundColor = [UIColor clearColor];
