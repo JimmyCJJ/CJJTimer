@@ -96,7 +96,6 @@ typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 @property (nonatomic, assign) CGFloat timerViewShadowOpacity;
 /// timerView的阴影圆角
 @property (nonatomic, assign) CGFloat timerViewShadowRadius;
-
 /// 时间颜色
 @property (nullable, nonatomic, strong) UIColor *timerTextLabelColor;
 /// 冒号颜色
@@ -105,6 +104,10 @@ typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 @property (nonatomic, strong) UIFont *timerTextLabelFont;
 /// 冒号字体
 @property (nonatomic, strong) UIFont *timerColonLabelFont;
+/// 1.默认冒号，可改成其他，例如-，时等
+@property (nonatomic, copy) NSString *timerColonFirstLabelText;
+/// 2.默认冒号，可改成其他，例如-，时等
+@property (nonatomic, strong) NSString *timerColonSecondLabelText;
 
 /// 自动计算timer的宽度
 @property (nonatomic, assign, readonly) CGFloat timerWidth;

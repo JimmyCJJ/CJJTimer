@@ -63,6 +63,8 @@ typedef NS_ENUM(NSInteger,CJJTimerViewType){
     self.timerColonLabelColor = [UIColor blackColor];
     self.timerTextLabelFont = [UIFont systemFontOfSize:14 weight:UIFontWeightBold];
     self.timerColonLabelFont = [UIFont systemFontOfSize:14 weight:UIFontWeightBold];
+    self.timerColonFirstLabelText = @":";
+    self.timerColonSecondLabelText = @":";
 }
 
 - (void)setTimerViewWidth:(CGFloat)timerViewWidth{
@@ -103,7 +105,7 @@ static NSArray * CJJTimerViewObserverKeyPaths() {
     static NSArray *_CJJTimerViewObservedKeyPaths = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _CJJTimerViewObservedKeyPaths = @[@"timerLastTime",@"timerWidth",@"timerViewBackgroundColor",@"timerViewCornerRadius",@"timerViewShadowColor",@"timerViewShadowOffset",@"timerViewShadowOpacity",@"timerViewShadowRadius",@"timerTextLabelColor",@"timerColonLabelColor",@"timerTextLabelFont",@"timerColonLabelFont"];
+        _CJJTimerViewObservedKeyPaths = @[@"timerLastTime",@"timerWidth",@"timerHeight",@"timerViewWidth",@"timerViewHeight",@"timerViewInset",@"timerColonWidth",@"timerInsets",@"timerViewBackgroundColor",@"timerViewCornerRadius",@"timerViewShadowColor",@"timerViewShadowOffset",@"timerViewShadowOpacity",@"timerViewShadowRadius",@"timerTextLabelColor",@"timerColonLabelColor",@"timerTextLabelFont",@"timerColonLabelFont",@"timerColonFirstLabelText",@"timerColonSecondLabelText"];
     });
     return _CJJTimerViewObservedKeyPaths;
 }
@@ -174,6 +176,41 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     [self displayViews:self.secondColonL viewType:CJJTimerView_ColonLabel];
 }
 
+- (void)displayViews:(UIView *)view viewType:(CJJTimerViewType)viewType{
+    CJJTimerViewConfiguration *configuration = self.configuration;
+    switch (viewType) {
+        case CJJTimerView_TimerView:
+        {
+            view.layer.backgroundColor = configuration.timerViewBackgroundColor.CGColor;
+            view.layer.cornerRadius = configuration.timerViewCornerRadius;
+            view.layer.shadowColor = configuration.timerViewShadowColor.CGColor;
+            view.layer.shadowOffset = configuration.timerViewShadowOffset;
+            view.layer.shadowOpacity = configuration.timerViewShadowOpacity;
+            view.layer.shadowRadius = configuration.timerViewShadowRadius;
+        }
+            break;
+        case CJJTimerView_TextLabel:
+        {
+            UILabel *textLabel = (UILabel *)view;
+            textLabel.textColor = configuration.timerTextLabelColor;
+            textLabel.font = configuration.timerTextLabelFont;
+        }
+            break;
+        case CJJTimerView_ColonLabel:
+        {
+            UILabel *colonLabel = (UILabel *)view;
+            colonLabel.textColor = configuration.timerColonLabelColor;
+            colonLabel.font = configuration.timerColonLabelFont;
+            if(colonLabel == self.firstColonL){
+                colonLabel.text = configuration.timerColonFirstLabelText;
+            }else if (colonLabel == self.secondColonL){
+                colonLabel.text = configuration.timerColonSecondLabelText;
+            }
+        }
+            break;
+    }
+}
+
 - (void)setLayout{
     
     [_secV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,13 +222,11 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     
     [_secondColonL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(_minV);
-//        make.left.mas_equalTo(_minV.mas_right).offset(self.configuration.timerViewInset);
         make.right.mas_equalTo(_secV.mas_left).offset(-self.configuration.timerViewInset);
         make.width.mas_equalTo(self.configuration.timerColonWidth);
     }];
     
     [_minV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.mas_equalTo(0);
         make.right.mas_equalTo(_secondColonL.mas_left).offset(-self.configuration.timerViewInset);
         make.centerY.mas_equalTo(_secV);
         make.width.mas_equalTo(self.configuration.timerViewWidth);
@@ -224,36 +259,6 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     }];
 }
 
-- (void)displayViews:(UIView *)view viewType:(CJJTimerViewType)viewType{
-    CJJTimerViewConfiguration *configuration = self.configuration;
-    switch (viewType) {
-        case CJJTimerView_TimerView:
-        {
-            view.layer.backgroundColor = configuration.timerViewBackgroundColor.CGColor;
-            view.layer.cornerRadius = configuration.timerViewCornerRadius;
-            view.layer.shadowColor = configuration.timerViewShadowColor.CGColor;
-            view.layer.shadowOffset = configuration.timerViewShadowOffset;
-            view.layer.shadowOpacity = configuration.timerViewShadowOpacity;
-            view.layer.shadowRadius = configuration.timerViewShadowRadius;
-        }
-            break;
-        case CJJTimerView_TextLabel:
-        {
-            UILabel *textLabel = (UILabel *)view;
-            textLabel.textColor = configuration.timerTextLabelColor;
-            textLabel.font = configuration.timerTextLabelFont;
-        }
-            break;
-        case CJJTimerView_ColonLabel:
-        {
-            UILabel *colonLabel = (UILabel *)view;
-            colonLabel.textColor = configuration.timerColonLabelColor;
-            colonLabel.font = configuration.timerColonLabelFont;
-        }
-            break;
-    }
-}
-
 - (void)configureLayout:(CJJTimerViewLayout)layout{
     layout(self.configuration.timerWidth, self.configuration.timerHeight);
 }
@@ -265,9 +270,42 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     if (context == CJJTimerViewObserverContext) {
         if([keyPath isEqualToString:@"timerLastTime"]){
             [self startTimer];
-        }else if ([keyPath isEqualToString:@"timerWidth"]){
+        }else if ([keyPath isEqualToString:@"timerWidth"] || [keyPath isEqualToString:@"timerHeight"]|| [keyPath isEqualToString:@"timerViewInset"] || [keyPath isEqualToString:@"timerInsets"]){
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(self.configuration.timerWidth);
+                make.height.mas_equalTo(self.configuration.timerHeight);
+            }];
+        }else if ([keyPath isEqualToString:@"timerViewWidth"]){
+            [self.hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerViewWidth);
+            }];
+            
+            [self.minV mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerViewWidth);
+            }];
+            
+            [self.secV mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerViewWidth);
+            }];
+        }else if ([keyPath isEqualToString:@"timerViewHeight"]){
+            [self.hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerViewHeight);
+            }];
+            
+            [self.minV mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerViewHeight);
+            }];
+            
+            [self.secV mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerViewHeight);
+            }];
+        }else if ([keyPath isEqualToString:@"timerColonWidth"]){
+            [_firstColonL mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerColonWidth);
+            }];
+            
+            [_secondColonL mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(self.configuration.timerColonWidth);
             }];
         }else if ([keyPath isEqualToString:@"timerViewBackgroundColor"]){
             self.hourV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
@@ -307,6 +345,10 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
         }else if ([keyPath isEqualToString:@"timerColonLabelFont"]){
             self.firstColonL.font = self.configuration.timerColonLabelFont;
             self.secondColonL.font = self.configuration.timerColonLabelFont;
+        }else if ([keyPath isEqualToString:@"timerColonFirstLabelText"]){
+            self.firstColonL.text = self.configuration.timerColonFirstLabelText;
+        }else if ([keyPath isEqualToString:@"timerColonSecondLabelText"]){
+            self.secondColonL.text = self.configuration.timerColonSecondLabelText;
         }
     }
 }
@@ -317,10 +359,9 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 - (dispatch_source_t)startTimer{
     self.hidden = NO;
     //先赋值一次
-    [self refreshView];
-    [self refreshLayout];
+    BOOL valid = [self refreshView];
     //GCD定时器
-    return self.dispatchTimer;
+    return valid?self.dispatchTimer:nil;
 }
 
 /// 销毁定时器
@@ -332,14 +373,14 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
         dispatch_source_cancel(_dispatchTimer);
         _dispatchTimer = nil;
         
-        _hourL.text = @"00";
-        _minL.text = @"00";
-        _secL.text = @"00";
-        if(_configuration.isTimerHiddenWhenFinished){
-            self.hidden = YES;
-        }else{
-            self.hidden = NO;
-        }
+    }
+    _hourL.text = @"00";
+    _minL.text = @"00";
+    _secL.text = @"00";
+    if(_configuration.isTimerHiddenWhenFinished){
+        self.hidden = YES;
+    }else{
+        self.hidden = NO;
     }
 }
 
@@ -366,7 +407,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 
 #pragma mark - refresh UI
 
-- (void)refreshView{
+- (BOOL)refreshView{
     
     //获取当前时间戳
     NSString *currentStamp = [self getNowTimeTimeStampSec];
@@ -385,7 +426,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
             [self.delegate timerFinished:self];
         }
         
-        return;
+        return NO;
     }
     
     if(lastHour < 10){
@@ -407,6 +448,8 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     }
     
     [self refreshLayout];
+    
+    return YES;
 }
 
 - (NSDateComponents *)startTimeStamp:(NSString *)startTimeStamp endTimeStamp:(NSString *)endTimeStamp

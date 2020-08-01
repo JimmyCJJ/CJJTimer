@@ -58,6 +58,12 @@
     }];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    self.timer.configuration.timerColonFirstLabelText = @"分";
+    self.timer.configuration.timerColonSecondLabelText = @"秒";
+    self.timer.configuration.timerColonWidth = 20;
+}
+
 - (CJJTimerView *)timer{
     if(!_timer){
         CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
