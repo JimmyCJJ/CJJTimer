@@ -7,7 +7,7 @@
 ##### 手动管理
 下载demo，直接把demo里的文件夹CJJTimer拖进工程即可
 
-##### CocoaPods管理(目前最新版本为1.0.6)
+##### CocoaPods管理(目前最新版本为1.0.7)
 ```
 pod 'CJJTimer'
 ```
