@@ -1,6 +1,6 @@
 //
 //  UIView+PlatformCornerRadius.h
-//  EJFSubscription
+//  CJJTimer
 //
 //  Created by Jimmy on 2019/12/17.
 //  Copyright © 2019 CJJTimer. All rights reserved.
