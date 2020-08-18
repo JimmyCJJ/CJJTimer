@@ -51,24 +51,25 @@
 - (CJJTimerView *)timer{
     if(!_timer){
         CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerViewWithMode:CJJTimerViewMode_MS];
-        configuration.timerColonMinLabelText = @"分";
-        configuration.timerColonSecLabelText = @"秒";
-        configuration.timerViewWidth = 30;
-        configuration.timerViewHeight = 30;
-        configuration.timerColonWidth = 30;
-        configuration.timerHiddenWhenFinished = NO;
-        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+12*60*60];
-        configuration.timerViewCornerRadius = 5;
-        configuration.timerViewBackgroundColor = [UIColor whiteColor];
-        configuration.timerViewShadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1];
-        configuration.timerViewShadowOffset = CGSizeMake(0,1.5);
-        configuration.timerViewShadowOpacity = 1;
-        configuration.timerViewShadowRadius = 5;
-        configuration.timerTextLabelFont = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
-        configuration.timerTextLabelColor = [UIColor colorWithRed:253/255.0 green:64/255.0 blue:71/255.0 alpha:1.0];
-        configuration.timerColonLabelFont = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
-        configuration.timerColonLabelColor = [UIColor colorWithRed:253/255.0 green:64/255.0 blue:71/255.0 alpha:1.0];
-        _timer = [CJJTimerView timerViewWithConfiguration:configuration];
+        configuration.colonMinLabelText(@"分")
+        .colonSecLabelText(@"秒")
+        .viewWidth(30)
+        .viewHeight(30)
+        .colonWidth(30)
+        .hiddenWhenFinished(NO)
+        .lastTime([NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+12*60*60])
+        .cornerRadius(5)
+        .backgroundColor([UIColor whiteColor])
+        .shadowColor([UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1])
+        .shadowOffset(CGSizeMake(0,1.5))
+        .shadowOpacity(1)
+        .shadowRadius(5)
+        .textLabelFont([UIFont systemFontOfSize:20 weight:UIFontWeightBold])
+        .textLabelColor([UIColor colorWithRed:253/255.0 green:64/255.0 blue:71/255.0 alpha:1.0])
+        .colonLabelFont([UIFont systemFontOfSize:20 weight:UIFontWeightBold])
+        .colonLabelColor([UIColor colorWithRed:253/255.0 green:64/255.0 blue:71/255.0 alpha:1.0]);
+        
+       _timer = [CJJTimerView timerViewWithConfiguration:configuration];
     }
     return _timer;
 }

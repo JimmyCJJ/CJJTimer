@@ -121,17 +121,18 @@
 - (CJJTimerView *)timer{
     if(!_timer){
         CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
-        configuration.timerAutoStart = NO;
-        configuration.timerViewWidth = 14;
-        configuration.timerViewHeight = 16;
-        configuration.timerViewHorizontalInset = 0;
-        configuration.timerLastTime = [NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+15*60*60];
-        configuration.timerViewCornerRadius = 3;
-        configuration.timerViewBackgroundColor = [UIColor clearColor];
-        configuration.timerTextLabelFont = [UIFont systemFontOfSize:10];
-        configuration.timerTextLabelColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
-        configuration.timerColonLabelFont = [UIFont systemFontOfSize:10];
-        configuration.timerColonLabelColor = [UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1];
+        configuration.autoStart(NO)
+        .viewWidth(14)
+        .viewHeight(16)
+        .horizontalInset(0)
+        .lastTime([NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+15*60*60])
+        .cornerRadius(3)
+        .backgroundColor([UIColor clearColor])
+        .textLabelFont([UIFont systemFontOfSize:10])
+        .textLabelColor([UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1])
+        .colonLabelFont([UIFont systemFontOfSize:10])
+        .colonLabelColor([UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1]);
+        
         _timer = [CJJTimerView timerViewWithConfiguration:configuration];
     }
     return _timer;
