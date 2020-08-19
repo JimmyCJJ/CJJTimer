@@ -2,7 +2,7 @@
 //  CJJSMSTimer.h
 //  CJJTimer
 //
-//  Created by CJJ on 2020/2/20.
+//  Created by JimmyCJJ on 2020/2/20.
 //  Copyright © 2020 CJJTimer. All rights reserved.
 //
 

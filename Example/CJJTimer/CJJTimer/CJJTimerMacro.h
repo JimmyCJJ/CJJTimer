@@ -2,7 +2,7 @@
 //  CJJTimerMacro.h
 //  CJJTimer
 //
-//  Created by CJJ on 2020/7/25.
+//  Created by JimmyCJJ on 2020/7/25.
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  CJJTimerViewConfiguration.h
 //  CJJTimer
 //
-//  Created by wangfeng on 2020/8/18.
+//  Created by JimmyCJJ on 2020/8/18.
 //  Copyright © 2020 CAOJIANJIN. All rights reserved.
 //
 
