@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "CJJIndexVC.h"
 
 @interface AppDelegate ()
 

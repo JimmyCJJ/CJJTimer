@@ -62,32 +62,15 @@
             make.size.mas_equalTo(CGSizeMake(timerWidth, timerHeight));
         }];
     }];
-}
-
-- (void)drawRect:(CGRect)rect{
+    
+    [self.contentView layoutIfNeeded];
+    
     [_timeL platFormRadiusViewWithRectCorner:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(3, 3)];
     
     [_timer platFormRadiusViewWithRectCorner:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(3, 3)];
     
-    if([_timer.layer.sublayers containsObject:self.shapeLayer]){
-        [self.shapeLayer removeFromSuperlayer];
-        self.shapeLayer = nil;
-    }
     [_timer.layer addSublayer:self.shapeLayer];
 }
-
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    self.timer.configuration.timerColonHourLabelText = @"时";
-//    self.timer.configuration.timerColonMinLabelText = @"分";
-//    self.timer.configuration.timerColonSecLabelText = @"秒";
-//    self.timer.configuration.timerColonWidth = 20;
-//    [self.timer configureLayout:^(CGFloat timerWidth, CGFloat timerHeight) {
-//        [self.timer mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.size.mas_equalTo(CGSizeMake(timerWidth, timerHeight));
-//        }];
-//    }];
-//    [self setNeedsDisplay];
-//}
 
 - (CJJTimerView *)timer{
     if(!_timer){
