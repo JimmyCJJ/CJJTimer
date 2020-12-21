@@ -467,7 +467,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     
     NSDateComponents *compareDate = [self startTimeStamp:currentStamp endTimeStamp:endStamp];
     
-    NSInteger lastHour = compareDate.hour+compareDate.day*24;
+    NSInteger lastHour = compareDate.hour;
     NSInteger lastMinute = compareDate.minute;
     NSInteger lastSecond = compareDate.second;
     
@@ -513,7 +513,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     NSDate *startDate = [[NSDate alloc] initWithTimeIntervalSince1970:[startTimeStamp doubleValue] + delta];
     NSDate *endDate = [[NSDate alloc] initWithTimeIntervalSince1970:[endTimeStamp doubleValue] + delta];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitWeekOfMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSCalendarUnit unit = NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     NSDateComponents *cmps = [calendar components:unit fromDate:startDate toDate:endDate options:0];
 //    NSLog(@"剩余%ld天,%ld小时%ld分%ld秒", cmps.day ,cmps.hour, cmps.minute, cmps.second);
     return cmps;
