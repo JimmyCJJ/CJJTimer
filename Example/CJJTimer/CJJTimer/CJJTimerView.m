@@ -35,17 +35,17 @@ static NSArray * CJJTimerViewObserverKeyPaths() {
 static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 
 @interface CJJTimerView ()
-@property (nonatomic, strong) UIView *hourV;
-@property (nonatomic, strong) UIView *minV;
-@property (nonatomic, strong) UIView *secV;
-@property (nonatomic, strong) UILabel *hourL;
-@property (nonatomic, strong) UILabel *minL;
-@property (nonatomic, strong) UILabel *secL;
-@property (nonatomic, strong) UILabel *hourColonL;
-@property (nonatomic, strong) UILabel *minColonL;
-@property (nonatomic, strong) UILabel *secColonL;
+@property (nonatomic, strong) UIView *hourView;
+@property (nonatomic, strong) UIView *minView;
+@property (nonatomic, strong) UIView *secView;
+@property (nonatomic, strong) UILabel *hourLabel;
+@property (nonatomic, strong) UILabel *minLabel;
+@property (nonatomic, strong) UILabel *secLabel;
+@property (nonatomic, strong) UILabel *hourColonLabel;
+@property (nonatomic, strong) UILabel *minColonLabel;
+@property (nonatomic, strong) UILabel *secColonLabel;
 
-@property (nonatomic, assign) CGFloat hourLastWidth;
+@property (nonatomic, assign) CGFloat hourLabelastWidth;
 @property (nonatomic, assign) CGFloat hourOriginWidth;
 @property (nonatomic, assign, getter=isSubspend) BOOL subspend;
 @property (nonatomic, strong) dispatch_source_t dispatchTimer;
@@ -79,57 +79,57 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 }
 
 - (void)setViews{
-    [self addSubview:self.hourV];
-    [self addSubview:self.minV];
-    [self addSubview:self.secV];
-    [self.hourV addSubview:self.hourL];
-    [self.minV addSubview:self.minL];
-    [self.secV addSubview:self.secL];
-    [self addSubview:self.hourColonL];
-    [self addSubview:self.minColonL];
-    [self addSubview:self.secColonL];
+    [self addSubview:self.hourView];
+    [self addSubview:self.minView];
+    [self addSubview:self.secView];
+    [self.hourView addSubview:self.hourLabel];
+    [self.minView addSubview:self.minLabel];
+    [self.secView addSubview:self.secLabel];
+    [self addSubview:self.hourColonLabel];
+    [self addSubview:self.minColonLabel];
+    [self addSubview:self.secColonLabel];
     
     switch (self.configuration.mode) {
         case CJJTimerViewMode_HMS:
             //00-:-00-:-00 / 00-时-00-分-00-秒
-            self.hourV.hidden = NO;
-            self.minV.hidden = NO;
-            self.secV.hidden = NO;
-            self.hourColonL.hidden = NO;
-            self.minColonL.hidden = NO;
-            self.secColonL.hidden = NO;
+            self.hourView.hidden = NO;
+            self.minView.hidden = NO;
+            self.secView.hidden = NO;
+            self.hourColonLabel.hidden = NO;
+            self.minColonLabel.hidden = NO;
+            self.secColonLabel.hidden = NO;
             break;
         case CJJTimerViewMode_HM:
             //00-:-00 / 00-时-00-分
-            self.hourV.hidden = NO;
-            self.minV.hidden = NO;
-            self.secV.hidden = YES;
-            self.hourColonL.hidden = NO;
-            self.minColonL.hidden = NO;
-            self.secColonL.hidden = YES;
+            self.hourView.hidden = NO;
+            self.minView.hidden = NO;
+            self.secView.hidden = YES;
+            self.hourColonLabel.hidden = NO;
+            self.minColonLabel.hidden = NO;
+            self.secColonLabel.hidden = YES;
             break;
         case CJJTimerViewMode_MS:
             //00-:-00 / 00-分-00-秒
-            self.hourV.hidden = YES;
-            self.minV.hidden = NO;
-            self.secV.hidden = NO;
-            self.hourColonL.hidden = NO;
-            self.minColonL.hidden = NO;
-            self.secColonL.hidden = NO;
+            self.hourView.hidden = YES;
+            self.minView.hidden = NO;
+            self.secView.hidden = NO;
+            self.hourColonLabel.hidden = NO;
+            self.minColonLabel.hidden = NO;
+            self.secColonLabel.hidden = NO;
             break;
     }
 }
 
 - (void)setDisplay{
-    [self displayViews:self.hourV viewType:CJJTimerView_TimerView];
-    [self displayViews:self.minV viewType:CJJTimerView_TimerView];
-    [self displayViews:self.secV viewType:CJJTimerView_TimerView];
-    [self displayViews:self.hourL viewType:CJJTimerView_TextLabel];
-    [self displayViews:self.minL viewType:CJJTimerView_TextLabel];
-    [self displayViews:self.secL viewType:CJJTimerView_TextLabel];
-    [self displayViews:self.hourColonL viewType:CJJTimerView_ColonLabel];
-    [self displayViews:self.minColonL viewType:CJJTimerView_ColonLabel];
-    [self displayViews:self.secColonL viewType:CJJTimerView_ColonLabel];
+    [self displayViews:self.hourView viewType:CJJTimerView_TimerView];
+    [self displayViews:self.minView viewType:CJJTimerView_TimerView];
+    [self displayViews:self.secView viewType:CJJTimerView_TimerView];
+    [self displayViews:self.hourLabel viewType:CJJTimerView_TextLabel];
+    [self displayViews:self.minLabel viewType:CJJTimerView_TextLabel];
+    [self displayViews:self.secLabel viewType:CJJTimerView_TextLabel];
+    [self displayViews:self.hourColonLabel viewType:CJJTimerView_ColonLabel];
+    [self displayViews:self.minColonLabel viewType:CJJTimerView_ColonLabel];
+    [self displayViews:self.secColonLabel viewType:CJJTimerView_ColonLabel];
 }
 
 - (void)displayViews:(UIView *)view viewType:(CJJTimerViewType)viewType{
@@ -157,11 +157,11 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
             UILabel *colonLabel = (UILabel *)view;
             colonLabel.textColor = configuration.timerColonLabelColor;
             colonLabel.font = configuration.timerColonLabelFont;
-            if(colonLabel == self.hourColonL){
+            if(colonLabel == self.hourColonLabel){
                 colonLabel.text = configuration.timerColonHourLabelText;
-            }else if (colonLabel == self.minColonL){
+            }else if (colonLabel == self.minColonLabel){
                 colonLabel.text = configuration.timerColonMinLabelText;
-            }else if (colonLabel == self.secColonL){
+            }else if (colonLabel == self.secColonLabel){
                 colonLabel.text = configuration.timerColonSecLabelText;
             }
         }
@@ -171,7 +171,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 
 - (void)setLayout{
     
-    [_secColonL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_secColonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-self.configuration.timerInsets.right);
         make.centerY.mas_equalTo(0);
         make.height.mas_equalTo(self.configuration.timerViewHeight);
@@ -182,85 +182,85 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
         }
     }];
     
-    [_secV mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_secView mas_makeConstraints:^(MASConstraintMaker *make) {
         if(self.configuration.isExistRightExtraView){
-            make.right.mas_equalTo(_secColonL.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+            make.right.mas_equalTo(_secColonLabel.mas_left).offset(-self.configuration.timerViewHorizontalInset);
         }else{
-            make.right.mas_equalTo(_secColonL.mas_left);
+            make.right.mas_equalTo(_secColonLabel.mas_left);
         }
         if(self.configuration.mode == CJJTimerViewMode_HM){
             make.width.mas_equalTo(0);
         }else{
             make.width.mas_equalTo(self.configuration.timerViewWidth);
         }
-        make.top.bottom.mas_equalTo(_secColonL);
-        make.centerY.mas_equalTo(_secColonL);
+        make.top.bottom.mas_equalTo(_secColonLabel);
+        make.centerY.mas_equalTo(_secColonLabel);
     }];
     
-    [_minColonL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(_secColonL);
+    [_minColonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_secColonLabel);
         if(self.configuration.mode == CJJTimerViewMode_HM){
-            if([self NullStr:_minColonL.text]){
+            if([self NullStr:_minColonLabel.text]){
                 make.width.mas_equalTo(0);
             }else{
                 make.width.mas_equalTo(self.configuration.timerColonWidth);
             }
-            make.right.mas_equalTo(_secV.mas_left);
+            make.right.mas_equalTo(_secView.mas_left);
         }else{
             make.width.mas_equalTo(self.configuration.timerColonWidth);
-            make.right.mas_equalTo(_secV.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+            make.right.mas_equalTo(_secView.mas_left).offset(-self.configuration.timerViewHorizontalInset);
         }
         make.height.mas_equalTo(self.configuration.timerViewHeight);
     }];
     
-    [_minV mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_minView mas_makeConstraints:^(MASConstraintMaker *make) {
         if(self.configuration.mode == CJJTimerViewMode_HM){
-            if([self NullStr:_minColonL.text]){
-                make.right.mas_equalTo(_minColonL.mas_left);
+            if([self NullStr:_minColonLabel.text]){
+                make.right.mas_equalTo(_minColonLabel.mas_left);
             }else{
-                make.right.mas_equalTo(_minColonL.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+                make.right.mas_equalTo(_minColonLabel.mas_left).offset(-self.configuration.timerViewHorizontalInset);
             }
         }else{
-            make.right.mas_equalTo(_minColonL.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+            make.right.mas_equalTo(_minColonLabel.mas_left).offset(-self.configuration.timerViewHorizontalInset);
         }
-        make.centerY.mas_equalTo(_secColonL);
+        make.centerY.mas_equalTo(_secColonLabel);
         make.width.mas_equalTo(self.configuration.timerViewWidth);
         make.height.mas_equalTo(self.configuration.timerViewHeight);
     }];
     
-    [_hourColonL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(_secColonL);
+    [_hourColonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_secColonLabel);
         make.height.mas_equalTo(self.configuration.timerViewHeight);
         if(self.configuration.mode == CJJTimerViewMode_MS){
-            make.right.mas_equalTo(_minV.mas_left);
+            make.right.mas_equalTo(_minView.mas_left);
             make.width.mas_equalTo(0);
         }else{
-            make.right.mas_equalTo(_minV.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+            make.right.mas_equalTo(_minView.mas_left).offset(-self.configuration.timerViewHorizontalInset);
             make.width.mas_equalTo(self.configuration.timerColonWidth);
         }
     }];
     
-    [_hourV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(_secColonL);
+    [_hourView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_secColonLabel);
         if(self.configuration.mode == CJJTimerViewMode_MS){
             make.width.mas_equalTo(0);
-            make.right.mas_equalTo(_hourColonL.mas_left);
+            make.right.mas_equalTo(_hourColonLabel.mas_left);
         }else{
             make.width.mas_equalTo(self.configuration.timerViewWidth);
-            make.right.mas_equalTo(_hourColonL.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+            make.right.mas_equalTo(_hourColonLabel.mas_left).offset(-self.configuration.timerViewHorizontalInset);
         }
         make.height.mas_equalTo(self.configuration.timerViewHeight);
     }];
 
-    [_hourL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_hourLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
     
-    [_minL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_minLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
     
-    [_secL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_secLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
 }
@@ -282,7 +282,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 make.height.mas_equalTo(self.configuration.timerHeight);
             }];
         }else if ([keyPath isEqualToString:@"timerViewWidth"]){
-            [self.hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.hourView mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.mode == CJJTimerViewMode_MS){
                     make.width.mas_equalTo(0);
                 }else{
@@ -290,11 +290,11 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 }
             }];
             
-            [self.minV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.minView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(self.configuration.timerViewWidth);
             }];
             
-            [self.secV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.secView mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.mode == CJJTimerViewMode_HM){
                     make.width.mas_equalTo(0);
                 }else{
@@ -302,19 +302,19 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 }
             }];
         }else if ([keyPath isEqualToString:@"timerViewHeight"]){
-            [self.hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.hourView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(self.configuration.timerViewHeight);
             }];
             
-            [self.minV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.minView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(self.configuration.timerViewHeight);
             }];
             
-            [self.secV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.secView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(self.configuration.timerViewHeight);
             }];
         }else if ([keyPath isEqualToString:@"timerColonWidth"]){
-            [_hourColonL mas_updateConstraints:^(MASConstraintMaker *make) {
+            [_hourColonLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.mode == CJJTimerViewMode_MS){
                     make.width.mas_equalTo(0);
                 }else{
@@ -322,9 +322,9 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 }
             }];
             
-            [_minColonL mas_updateConstraints:^(MASConstraintMaker *make) {
+            [_minColonLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.mode == CJJTimerViewMode_HM){
-                    if([self NullStr:_minColonL.text]){
+                    if([self NullStr:_minColonLabel.text]){
                         make.width.mas_equalTo(0);
                     }else{
                         make.width.mas_equalTo(self.configuration.timerColonWidth);
@@ -334,7 +334,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 }
             }];
             
-            [_secColonL mas_updateConstraints:^(MASConstraintMaker *make) {
+            [_secColonLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.isExistRightExtraView){
                     make.width.mas_equalTo(self.configuration.timerColonWidth);
                 }else{
@@ -342,51 +342,51 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 }
             }];
         }else if ([keyPath isEqualToString:@"timerViewBackgroundColor"]){
-            self.hourV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
-            self.minV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
-            self.secV.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
+            self.hourView.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
+            self.minView.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
+            self.secView.layer.backgroundColor = self.configuration.timerViewBackgroundColor.CGColor;
         }else if ([keyPath isEqualToString:@"timerViewCornerRadius"]){
-            self.hourV.layer.cornerRadius = self.configuration.timerViewCornerRadius;
-            self.minV.layer.cornerRadius = self.configuration.timerViewCornerRadius;
-            self.secV.layer.cornerRadius = self.configuration.timerViewCornerRadius;
+            self.hourView.layer.cornerRadius = self.configuration.timerViewCornerRadius;
+            self.minView.layer.cornerRadius = self.configuration.timerViewCornerRadius;
+            self.secView.layer.cornerRadius = self.configuration.timerViewCornerRadius;
         }else if ([keyPath isEqualToString:@"timerViewShadowColor"]){
-            self.hourV.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
-            self.minV.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
-            self.secV.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
+            self.hourView.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
+            self.minView.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
+            self.secView.layer.shadowColor = self.configuration.timerViewShadowColor.CGColor;
         }else if ([keyPath isEqualToString:@"timerViewShadowOffset"]){
-            self.hourV.layer.shadowOffset = self.configuration.timerViewShadowOffset;
-            self.minV.layer.shadowOffset = self.configuration.timerViewShadowOffset;
-            self.secV.layer.shadowOffset = self.configuration.timerViewShadowOffset;
+            self.hourView.layer.shadowOffset = self.configuration.timerViewShadowOffset;
+            self.minView.layer.shadowOffset = self.configuration.timerViewShadowOffset;
+            self.secView.layer.shadowOffset = self.configuration.timerViewShadowOffset;
         }else if ([keyPath isEqualToString:@"timerViewShadowOpacity"]){
-            self.hourV.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
-            self.minV.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
-            self.secV.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
+            self.hourView.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
+            self.minView.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
+            self.secView.layer.shadowOpacity = self.configuration.timerViewShadowOpacity;
         }else if ([keyPath isEqualToString:@"timerViewShadowRadius"]){
-            self.hourV.layer.shadowRadius = self.configuration.timerViewShadowRadius;
-            self.minV.layer.shadowRadius = self.configuration.timerViewShadowRadius;
-            self.secV.layer.shadowRadius = self.configuration.timerViewShadowRadius;
+            self.hourView.layer.shadowRadius = self.configuration.timerViewShadowRadius;
+            self.minView.layer.shadowRadius = self.configuration.timerViewShadowRadius;
+            self.secView.layer.shadowRadius = self.configuration.timerViewShadowRadius;
         }else if ([keyPath isEqualToString:@"timerTextLabelColor"]){
-            self.hourL.textColor = self.configuration.timerTextLabelColor;
-            self.minL.textColor = self.configuration.timerTextLabelColor;
-            self.secL.textColor = self.configuration.timerTextLabelColor;
+            self.hourLabel.textColor = self.configuration.timerTextLabelColor;
+            self.minLabel.textColor = self.configuration.timerTextLabelColor;
+            self.secLabel.textColor = self.configuration.timerTextLabelColor;
         }else if ([keyPath isEqualToString:@"timerColonLabelColor"]){
-            self.hourColonL.textColor = self.configuration.timerColonLabelColor;
-            self.minColonL.textColor = self.configuration.timerColonLabelColor;
+            self.hourColonLabel.textColor = self.configuration.timerColonLabelColor;
+            self.minColonLabel.textColor = self.configuration.timerColonLabelColor;
         }else if ([keyPath isEqualToString:@"timerTextLabelFont"]){
-            self.hourL.font = self.configuration.timerTextLabelFont;
-            self.minL.font = self.configuration.timerTextLabelFont;
-            self.secL.font = self.configuration.timerTextLabelFont;
+            self.hourLabel.font = self.configuration.timerTextLabelFont;
+            self.minLabel.font = self.configuration.timerTextLabelFont;
+            self.secLabel.font = self.configuration.timerTextLabelFont;
         }else if ([keyPath isEqualToString:@"timerColonLabelFont"]){
-            self.hourColonL.font = self.configuration.timerColonLabelFont;
-            self.minColonL.font = self.configuration.timerColonLabelFont;
-            self.secColonL.font = self.configuration.timerColonLabelFont;
+            self.hourColonLabel.font = self.configuration.timerColonLabelFont;
+            self.minColonLabel.font = self.configuration.timerColonLabelFont;
+            self.secColonLabel.font = self.configuration.timerColonLabelFont;
         }else if ([keyPath isEqualToString:@"timerColonHourLabelText"]){
-            self.hourColonL.text = self.configuration.timerColonHourLabelText;
+            self.hourColonLabel.text = self.configuration.timerColonHourLabelText;
         }else if ([keyPath isEqualToString:@"timerColonMinLabelText"]){
-            self.minColonL.text = self.configuration.timerColonMinLabelText;
+            self.minColonLabel.text = self.configuration.timerColonMinLabelText;
         }else if ([keyPath isEqualToString:@"timerColonSecLabelText"]){
-            self.secColonL.text = self.configuration.timerColonSecLabelText;
-            [_secColonL mas_updateConstraints:^(MASConstraintMaker *make) {
+            self.secColonLabel.text = self.configuration.timerColonSecLabelText;
+            [_secColonLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.isExistRightExtraView){
                     make.width.mas_equalTo(self.configuration.timerColonWidth);
                 }else{
@@ -394,11 +394,11 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
                 }
             }];
             
-            [_secV mas_updateConstraints:^(MASConstraintMaker *make) {
+            [_secView mas_updateConstraints:^(MASConstraintMaker *make) {
                 if(self.configuration.isExistRightExtraView){
-                    make.right.mas_equalTo(_secColonL.mas_left).offset(-self.configuration.timerViewHorizontalInset);
+                    make.right.mas_equalTo(_secColonLabel.mas_left).offset(-self.configuration.timerViewHorizontalInset);
                 }else{
-                    make.right.mas_equalTo(_secColonL.mas_left).offset(0);
+                    make.right.mas_equalTo(_secColonLabel.mas_left).offset(0);
                 }
             }];
         }
@@ -426,9 +426,9 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
         _dispatchTimer = nil;
         
     }
-    _hourL.text = @"00";
-    _minL.text = @"00";
-    _secL.text = @"00";
+    _hourLabel.text = @"00";
+    _minLabel.text = @"00";
+    _secLabel.text = @"00";
     if(_configuration.isTimerHiddenWhenFinished){
         self.hidden = YES;
     }else{
@@ -482,21 +482,21 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
     }
     
     if(lastHour < 10){
-        self.hourL.text = [NSString stringWithFormat:@"0%ld",(long)lastHour];
+        self.hourLabel.text = [NSString stringWithFormat:@"0%ld",(long)lastHour];
     }else{
-        self.hourL.text = [NSString stringWithFormat:@"%ld",(long)lastHour];
+        self.hourLabel.text = [NSString stringWithFormat:@"%ld",(long)lastHour];
     }
     
     if(lastMinute < 10){
-        self.minL.text = [NSString stringWithFormat:@"0%ld",(long)lastMinute];
+        self.minLabel.text = [NSString stringWithFormat:@"0%ld",(long)lastMinute];
     }else{
-        self.minL.text = [NSString stringWithFormat:@"%ld",(long)lastMinute];
+        self.minLabel.text = [NSString stringWithFormat:@"%ld",(long)lastMinute];
     }
     
     if(lastSecond < 10){
-        self.secL.text = [NSString stringWithFormat:@"0%ld",(long)lastSecond];
+        self.secLabel.text = [NSString stringWithFormat:@"0%ld",(long)lastSecond];
     }else{
-        self.secL.text = [NSString stringWithFormat:@"%ld",(long)lastSecond];
+        self.secLabel.text = [NSString stringWithFormat:@"%ld",(long)lastSecond];
     }
     
     [self refreshLayout];
@@ -543,17 +543,17 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 #pragma mark - refersh layout
 
 - (void)refreshLayout{
-    if(self.hourL.text.floatValue >= 100){
+    if(self.hourLabel.text.floatValue >= 100){
         CGFloat oneLineH = [self getLabelHeightWithString:@"one" Width:20 font:self.configuration.timerTextLabelFont];
-        CGFloat hourW = [self getLabelWidthWithString:self.hourL.text Height:oneLineH font:self.configuration.timerTextLabelFont]+5;
+        CGFloat hourW = [self getLabelWidthWithString:self.hourLabel.text Height:oneLineH font:self.configuration.timerTextLabelFont]+5;
         
-        if(self.hourLastWidth > 0){
-            if(self.hourLastWidth != hourW){
+        if(self.hourLabelastWidth > 0){
+            if(self.hourLabelastWidth != hourW){
                 if(self.configuration.mode == CJJTimerViewMode_MS){
                     hourW = 0;
                 }
-                self.hourLastWidth = hourW;
-                [_hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.hourLabelastWidth = hourW;
+                [_hourView mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.width.mas_equalTo(hourW);
                 }];
             }
@@ -561,18 +561,18 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
             if(self.configuration.mode == CJJTimerViewMode_MS){
                 hourW = 0;
             }
-            self.hourLastWidth = hourW;
-            [_hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+            self.hourLabelastWidth = hourW;
+            [_hourView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(hourW);
             }];
         }
     }else{
         if(self.configuration.mode == CJJTimerViewMode_MS){
-            self.hourLastWidth = 0;
+            self.hourLabelastWidth = 0;
         }else{
-            self.hourLastWidth = self.configuration.timerViewWidth;
+            self.hourLabelastWidth = self.configuration.timerViewWidth;
         }
-        [_hourV mas_updateConstraints:^(MASConstraintMaker *make) {
+        [_hourView mas_updateConstraints:^(MASConstraintMaker *make) {
             if(self.configuration.mode == CJJTimerViewMode_MS){
                 make.width.mas_equalTo(0);
             }else{
@@ -632,13 +632,13 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 
 #pragma mark - setter
 
-- (void)setHourLastWidth:(CGFloat)hourLastWidth{
-    _hourLastWidth = hourLastWidth;
-    if(_hourLastWidth > self.configuration.timerViewWidth){
+- (void)setHourLastWidth:(CGFloat)hourLabelastWidth{
+    _hourLabelastWidth = hourLabelastWidth;
+    if(_hourLabelastWidth > self.configuration.timerViewWidth){
         if(self.hourOriginWidth == 0){
             self.hourOriginWidth = self.configuration.timerWidth;
         }
-        [self.configuration setValue:@(self.hourOriginWidth + (_hourLastWidth - self.configuration.timerViewWidth)) forKey:@"timerWidth"];
+        [self.configuration setValue:@(self.hourOriginWidth + (_hourLabelastWidth - self.configuration.timerViewWidth)) forKey:@"timerWidth"];
     }
 }
 
@@ -673,76 +673,76 @@ dispatch_source_t CJJTimerViewCreateDispatchTimer(uint64_t interval,
     return timer;
 }
 
-- (UIView *)hourV{
-    if(!_hourV){
-        _hourV = [UIView new];
+- (UIView *)hourView{
+    if(!_hourView){
+        _hourView = [UIView new];
     }
-    return _hourV;
+    return _hourView;
 }
 
-- (UIView *)minV{
-    if(!_minV){
-        _minV = [UIView new];
+- (UIView *)minView{
+    if(!_minView){
+        _minView = [UIView new];
     }
-    return _minV;
+    return _minView;
 }
 
-- (UIView *)secV{
-    if(!_secV){
-        _secV = [UIView new];
+- (UIView *)secView{
+    if(!_secView){
+        _secView = [UIView new];
     }
-    return _secV;
+    return _secView;
 }
 
-- (UILabel *)hourL{
-    if(!_hourL){
-        _hourL = [UILabel new];
-        _hourL.text = @"00";
-        _hourL.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)hourLabel{
+    if(!_hourLabel){
+        _hourLabel = [UILabel new];
+        _hourLabel.text = @"00";
+        _hourLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _hourL;
+    return _hourLabel;
 }
 
-- (UILabel *)minL{
-    if(!_minL){
-        _minL = [UILabel new];
-        _minL.text = @"00";
-        _minL.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)minLabel{
+    if(!_minLabel){
+        _minLabel = [UILabel new];
+        _minLabel.text = @"00";
+        _minLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _minL;
+    return _minLabel;
 }
 
-- (UILabel *)secL{
-    if(!_secL){
-        _secL = [UILabel new];
-        _secL.text = @"00";
-        _secL.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)secLabel{
+    if(!_secLabel){
+        _secLabel = [UILabel new];
+        _secLabel.text = @"00";
+        _secLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _secL;
+    return _secLabel;
 }
 
-- (UILabel *)hourColonL{
-    if(!_hourColonL){
-        _hourColonL = [UILabel new];
-        _hourColonL.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)hourColonLabel{
+    if(!_hourColonLabel){
+        _hourColonLabel = [UILabel new];
+        _hourColonLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _hourColonL;
+    return _hourColonLabel;
 }
 
-- (UILabel *)minColonL{
-    if(!_minColonL){
-        _minColonL = [UILabel new];
-        _minColonL.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)minColonLabel{
+    if(!_minColonLabel){
+        _minColonLabel = [UILabel new];
+        _minColonLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _minColonL;
+    return _minColonLabel;
 }
 
-- (UILabel *)secColonL{
-    if(!_secColonL){
-        _secColonL = [UILabel new];
-        _secColonL.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)secColonLabel{
+    if(!_secColonLabel){
+        _secColonLabel = [UILabel new];
+        _secColonLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _secColonL;
+    return _secColonLabel;
 }
 
 #pragma mark - deadline
