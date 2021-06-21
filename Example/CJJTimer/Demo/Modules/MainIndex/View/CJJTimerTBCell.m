@@ -7,6 +7,8 @@
 //
 
 #import "CJJTimerTBCell.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
 @interface CJJTimerTBCell ()<CJJTimerViewDelegate>
 @property (nonatomic, strong) UILabel *titleL;
@@ -70,7 +72,7 @@
 
 - (CJJTimerView *)timer{
     if(!_timer){
-        CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
+        CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerViewWithMode:CJJTimerViewMode_HMS];
         configuration.viewWidth(18)
         .viewHeight(18)
         .hiddenWhenFinished(NO)
@@ -80,7 +82,8 @@
         .textLabelFont([UIFont systemFontOfSize:11 weight:UIFontWeightBold])
         .textLabelColor([UIColor whiteColor])
         .colonLabelFont([UIFont systemFontOfSize:11 weight:UIFontWeightBold])
-        .colonLabelColor([UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1]);
+        .colonLabelColor([UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1])
+        .hiddenWhenFinished(NO);
 
         _timer = [CJJTimerView timerViewWithConfiguration:configuration];
         _timer.delegate = self;

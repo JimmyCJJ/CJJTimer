@@ -34,6 +34,8 @@
 		0AE8249D24AB178300A95268 /* CJJTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8249C24AB178300A95268 /* CJJTimerTests.m */; };
 		0AE824A824AB178300A95268 /* CJJTimerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE824A724AB178300A95268 /* CJJTimerUITests.m */; };
 		4EBE5C913463FA1CADBF5BCF /* libPods-CJJTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F82040337842D839233E473 /* libPods-CJJTimer.a */; };
+		BFC2113D2667E5C8001515BE /* CJJTimerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC2113C2667E5C8001515BE /* CJJTimerTool.m */; };
+		BFDC11AD26713C3400B54A4C /* CJJTimerDHMSColonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDC11AC26713C3400B54A4C /* CJJTimerDHMSColonCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,10 @@
 		0AE824BF24AB185200A95268 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0F82040337842D839233E473 /* libPods-CJJTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CJJTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F17940A3DDC633E61B35733 /* Pods-CJJTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJJTimer.release.xcconfig"; path = "Target Support Files/Pods-CJJTimer/Pods-CJJTimer.release.xcconfig"; sourceTree = "<group>"; };
+		BFC2113B2667E5C8001515BE /* CJJTimerTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerTool.h; sourceTree = "<group>"; };
+		BFC2113C2667E5C8001515BE /* CJJTimerTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerTool.m; sourceTree = "<group>"; };
+		BFDC11AB26713C3400B54A4C /* CJJTimerDHMSColonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJJTimerDHMSColonCell.h; sourceTree = "<group>"; };
+		BFDC11AC26713C3400B54A4C /* CJJTimerDHMSColonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJJTimerDHMSColonCell.m; sourceTree = "<group>"; };
 		DF7A51D14D8C4722577971F8 /* Pods-CJJTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJJTimer.debug.xcconfig"; path = "Target Support Files/Pods-CJJTimer/Pods-CJJTimer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +208,8 @@
 				0AA58A3424C99645004CD5A7 /* CJJTimerSNCell.m */,
 				0A1A7CD224CA7C3D00227F78 /* CJJTimerPDDCell.h */,
 				0A1A7CD324CA7C3D00227F78 /* CJJTimerPDDCell.m */,
+				BFDC11AB26713C3400B54A4C /* CJJTimerDHMSColonCell.h */,
+				BFDC11AC26713C3400B54A4C /* CJJTimerDHMSColonCell.m */,
 				0A35C87224D5556900EEA571 /* CJJTimerHMSColonCell.h */,
 				0A35C87324D5556900EEA571 /* CJJTimerHMSColonCell.m */,
 				0A35C87524D56EFA00EEA571 /* CJJTimerHMColonCell.h */,
@@ -244,6 +252,8 @@
 				0A93EF0B24EBA032007C6E93 /* CJJTimerViewConfiguration+Invoke.m */,
 				0AD6617824CE9C50005A8C06 /* CJJSMSTimer.h */,
 				0AD6617A24CE9C50005A8C06 /* CJJSMSTimer.m */,
+				BFC2113B2667E5C8001515BE /* CJJTimerTool.h */,
+				BFC2113C2667E5C8001515BE /* CJJTimerTool.m */,
 			);
 			path = CJJTimer;
 			sourceTree = "<group>";
@@ -542,7 +552,9 @@
 				0A35C87A24D56F0D00EEA571 /* CJJTimerMSColonCell.m in Sources */,
 				0A93EF0624EB9C47007C6E93 /* CJJTimerViewConfiguration.m in Sources */,
 				0AE8249324AB178300A95268 /* main.m in Sources */,
+				BFC2113D2667E5C8001515BE /* CJJTimerTool.m in Sources */,
 				0AA36C4624CBD73A0059DC26 /* CJJTimerSMSCell.m in Sources */,
+				BFDC11AD26713C3400B54A4C /* CJJTimerDHMSColonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

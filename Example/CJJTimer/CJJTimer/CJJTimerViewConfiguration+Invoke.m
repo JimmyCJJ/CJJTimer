@@ -12,151 +12,185 @@
 
 #pragma mark - Function Config
 
-- (CJJTimerViewConfiguration *(^)(NSString *))lastTime{
-    return ^CJJTimerViewConfiguration * (NSString *lastTime){
+- (CJJTimerViewConfiguration *(^)(NSString *))lastTime {
+    return ^CJJTimerViewConfiguration * (NSString *lastTime) {
         self.timerLastTime = lastTime;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(BOOL))autoStart{
-    return ^CJJTimerViewConfiguration * (BOOL autoStart){
+- (CJJTimerViewConfiguration *(^)(BOOL))autoStart {
+    return ^CJJTimerViewConfiguration * (BOOL autoStart) {
         self.timerAutoStart = autoStart;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(BOOL))hiddenWhenFinished{
-    return ^CJJTimerViewConfiguration * (BOOL hiddenWhenFinished){
+- (CJJTimerViewConfiguration *(^)(BOOL))hiddenWhenFinished {
+    return ^CJJTimerViewConfiguration * (BOOL hiddenWhenFinished) {
         self.timerHiddenWhenFinished = hiddenWhenFinished;
+        return self;
+    };
+}
+
+- (CJJTimerViewConfiguration *(^)(BOOL))autoChangeMode; {
+    return ^CJJTimerViewConfiguration * (BOOL autoChangeMode) {
+        self.timerAutoChangeMode = autoChangeMode;
         return self;
     };
 }
 
 #pragma mark - UI Config
 
-- (CJJTimerViewConfiguration *(^)(CGFloat))viewWidth{
-    return ^CJJTimerViewConfiguration * (CGFloat viewWidth){
+- (CJJTimerViewConfiguration *(^)(CGFloat))viewWidth {
+    return ^CJJTimerViewConfiguration * (CGFloat viewWidth) {
         self.timerViewWidth = viewWidth;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(CGFloat))viewHeight{
-    return ^CJJTimerViewConfiguration * (CGFloat viewHeight){
+- (CJJTimerViewConfiguration *(^)(CGFloat))viewHeight {
+    return ^CJJTimerViewConfiguration * (CGFloat viewHeight) {
         self.timerViewHeight = viewHeight;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(CGFloat))horizontalInset{
-    return ^CJJTimerViewConfiguration * (CGFloat horizontalInset){
-        self.timerViewHorizontalInset = horizontalInset;
-        return self;
-    };
-}
-
-- (CJJTimerViewConfiguration *(^)(CGFloat))colonWidth{
-    return ^CJJTimerViewConfiguration * (CGFloat colonWidth){
+- (CJJTimerViewConfiguration *(^)(CGFloat))colonWidth {
+    return ^CJJTimerViewConfiguration * (CGFloat colonWidth) {
         self.timerColonWidth = colonWidth;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIEdgeInsets))insets{
-    return ^CJJTimerViewConfiguration * (UIEdgeInsets insets){
+- (CJJTimerViewConfiguration *(^)(CGFloat))dayColonWidth {
+    return ^CJJTimerViewConfiguration * (CGFloat dayColonWidth) {
+        self.timerDayColonWidth = dayColonWidth;
+        return self;
+    };
+}
+
+- (CJJTimerViewConfiguration *(^)(CGFloat))hourColonWidth {
+    return ^CJJTimerViewConfiguration * (CGFloat hourColonWidth) {
+        self.timerHourColonWidth = hourColonWidth;
+        return self;
+    };
+}
+
+- (CJJTimerViewConfiguration *(^)(CGFloat))minColonWidth {
+    return ^CJJTimerViewConfiguration * (CGFloat minColonWidth) {
+        self.timerMinColonWidth = minColonWidth;
+        return self;
+    };
+}
+
+- (CJJTimerViewConfiguration *(^)(CGFloat))secColonWidth {
+    return ^CJJTimerViewConfiguration * (CGFloat secColonWidth) {
+        self.timerSecColonWidth = secColonWidth;
+        return self;
+    };
+}
+
+- (CJJTimerViewConfiguration *(^)(UIEdgeInsets))insets {
+    return ^CJJTimerViewConfiguration * (UIEdgeInsets insets) {
         self.timerInsets = insets;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIColor *))backgroundColor{
-    return ^CJJTimerViewConfiguration * (UIColor *backgroundColor){
+- (CJJTimerViewConfiguration *(^)(UIColor *))backgroundColor {
+    return ^CJJTimerViewConfiguration * (UIColor *backgroundColor) {
         self.timerViewBackgroundColor = backgroundColor;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(CGFloat))cornerRadius{
-    return ^CJJTimerViewConfiguration * (CGFloat cornerRadius){
+- (CJJTimerViewConfiguration *(^)(CGFloat))cornerRadius {
+    return ^CJJTimerViewConfiguration * (CGFloat cornerRadius) {
         self.timerViewCornerRadius = cornerRadius;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIColor *))shadowColor{
-    return ^CJJTimerViewConfiguration * (UIColor *shadowColor){
+- (CJJTimerViewConfiguration *(^)(UIColor *))shadowColor {
+    return ^CJJTimerViewConfiguration * (UIColor *shadowColor) {
         self.timerViewShadowColor = shadowColor;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(CGSize))shadowOffset{
-    return ^CJJTimerViewConfiguration * (CGSize shadowOffset){
+- (CJJTimerViewConfiguration *(^)(CGSize))shadowOffset {
+    return ^CJJTimerViewConfiguration * (CGSize shadowOffset) {
         self.timerViewShadowOffset = shadowOffset;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(CGFloat))shadowOpacity{
-    return ^CJJTimerViewConfiguration * (CGFloat shadowOpacity){
+- (CJJTimerViewConfiguration *(^)(CGFloat))shadowOpacity {
+    return ^CJJTimerViewConfiguration * (CGFloat shadowOpacity) {
         self.timerViewShadowOpacity = shadowOpacity;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(CGFloat))shadowRadius{
-    return ^CJJTimerViewConfiguration * (CGFloat shadowRadius){
+- (CJJTimerViewConfiguration *(^)(CGFloat))shadowRadius {
+    return ^CJJTimerViewConfiguration * (CGFloat shadowRadius) {
         self.timerViewShadowRadius = shadowRadius;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIColor *))textLabelColor{
-    return ^CJJTimerViewConfiguration * (UIColor *textLabelColor){
+- (CJJTimerViewConfiguration *(^)(UIColor *))textLabelColor {
+    return ^CJJTimerViewConfiguration * (UIColor *textLabelColor) {
         self.timerTextLabelColor = textLabelColor;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIColor *))colonLabelColor{
-    return ^CJJTimerViewConfiguration * (UIColor *colonLabelColor){
+- (CJJTimerViewConfiguration *(^)(UIColor *))colonLabelColor {
+    return ^CJJTimerViewConfiguration * (UIColor *colonLabelColor) {
         self.timerColonLabelColor = colonLabelColor;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIFont *))textLabelFont{
-    return ^CJJTimerViewConfiguration * (UIFont *textLabelFont){
+- (CJJTimerViewConfiguration *(^)(UIFont *))textLabelFont {
+    return ^CJJTimerViewConfiguration * (UIFont *textLabelFont) {
         self.timerTextLabelFont = textLabelFont;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(UIFont *))colonLabelFont{
-    return ^CJJTimerViewConfiguration * (UIFont *colonLabelFont){
+- (CJJTimerViewConfiguration *(^)(UIFont *))colonLabelFont {
+    return ^CJJTimerViewConfiguration * (UIFont *colonLabelFont) {
         self.timerColonLabelFont = colonLabelFont;
         return self;
     };
 }
 
+- (CJJTimerViewConfiguration *(^)(NSString *))colonDayLabelText {
+    return ^CJJTimerViewConfiguration * (NSString *colonDayLabelText) {
+        self.timerColonDayLabelText = colonDayLabelText;
+        return self;
+    };
+}
 
-- (CJJTimerViewConfiguration *(^)(NSString *))colonHourLabelText{
-    return ^CJJTimerViewConfiguration * (NSString *colonHourLabelText){
+- (CJJTimerViewConfiguration *(^)(NSString *))colonHourLabelText {
+    return ^CJJTimerViewConfiguration * (NSString *colonHourLabelText) {
         self.timerColonHourLabelText = colonHourLabelText;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(NSString *))colonMinLabelText{
-    return ^CJJTimerViewConfiguration * (NSString *colonMinLabelText){
+- (CJJTimerViewConfiguration *(^)(NSString *))colonMinLabelText {
+    return ^CJJTimerViewConfiguration * (NSString *colonMinLabelText) {
         self.timerColonMinLabelText = colonMinLabelText;
         return self;
     };
 }
 
-- (CJJTimerViewConfiguration *(^)(NSString *))colonSecLabelText{
-    return ^CJJTimerViewConfiguration * (NSString *colonSecLabelText){
+- (CJJTimerViewConfiguration *(^)(NSString *))colonSecLabelText {
+    return ^CJJTimerViewConfiguration * (NSString *colonSecLabelText) {
         self.timerColonSecLabelText = colonSecLabelText;
         return self;
     };

@@ -22,8 +22,11 @@ typedef void (^CJJTimerViewLayout)(CGFloat timerWidth, CGFloat timerHeight);
 @class CJJTimerView;
 @protocol CJJTimerViewDelegate <NSObject>
 
+@optional
 /// 倒计时结束回调
-- (void)timerFinished:(CJJTimerView *)timerView;
+- (void)timerFinishedInTimerView:(CJJTimerView *)timerView;
+/// 改变模式回调，只有timerAutoChangeMode设置为YES才会回调，请务必在此回调方法里再次调用configureLayout方法更新布局
+- (void)changeModeInTimerView:(CJJTimerView *)timerView;
 
 @end
 

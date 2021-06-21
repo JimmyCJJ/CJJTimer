@@ -7,6 +7,8 @@
 //
 
 #import "CJJTimerPDDCell.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
 @interface CJJTimerPDDCell ()
 @property (nonatomic, strong) UIView *backView;
@@ -124,7 +126,6 @@
         configuration.autoStart(NO)
         .viewWidth(14)
         .viewHeight(16)
-        .horizontalInset(0)
         .lastTime([NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+15*60*60])
         .cornerRadius(3)
         .backgroundColor([UIColor clearColor])

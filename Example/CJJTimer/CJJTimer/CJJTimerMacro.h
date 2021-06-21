@@ -10,8 +10,13 @@
 #define CJJTimerMacro_h
 
 //弱化
-#define kWeakSelf(type)  __weak typeof(type) weak##type = type;
+#define CJJWeakSelf(type)  __weak typeof(type) weak##type = type;
 //代码块里面强化，防止丢失
-#define kStrongSelf(type) __strong typeof(type) strong##type = weak##type;
+#define CJJStrongSelf(type) __strong typeof(type) strong##type = weak##type;
+
+#define CJJAbstractMethodNotImplemented() \
+@throw [NSException exceptionWithName:NSInternalInconsistencyException \
+reason:[NSString stringWithFormat:@"You must override %@ in a subclass.", NSStringFromSelector(_cmd)] \
+userInfo:nil]
 
 #endif /* CJJTimerMacro_h */

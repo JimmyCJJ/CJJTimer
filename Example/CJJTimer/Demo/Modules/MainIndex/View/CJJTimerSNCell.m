@@ -7,8 +7,10 @@
 //
 
 #import "CJJTimerSNCell.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
-@interface CJJTimerSNCell ()
+@interface CJJTimerSNCell ()<CJJTimerViewDelegate>
 @property (nonatomic, strong) UILabel *timeL;
 @property (nonatomic, strong) CJJTimerView *timer;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
@@ -50,7 +52,7 @@
 - (void)setLayout{
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(-40);
-        make.height.mas_equalTo(22);
+        make.height.mas_equalTo(24);
         make.centerY.mas_equalTo(0);
         make.width.mas_equalTo(50);
     }];
@@ -72,13 +74,28 @@
     [_timer.layer addSublayer:self.shapeLayer];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.timer.configuration.timerViewWidth = 100;
+}
+
+#pragma mark - CJJTimerViewDelegate
+
+- (void)changeModeInTimerView:(CJJTimerView *)timerView {
+    NSLog(@"回调了");
+    [self.timer configureLayout:^(CGFloat timerWidth, CGFloat timerHeight) {
+        [self.timer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.timeL.mas_right);
+            make.centerY.mas_equalTo(0);
+            make.size.mas_equalTo(CGSizeMake(timerWidth, timerHeight));
+        }];
+    }];
+}
+
 - (CJJTimerView *)timer{
     if(!_timer){
-        CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerView];
-        configuration.lastTime([NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+14*60*60])
+        CJJTimerViewConfiguration *configuration = [CJJTimerViewConfiguration configureTimerViewWithMode:CJJTimerViewMode_HMS];
+        configuration.lastTime([NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+16*60*60])
         .viewWidth(18)
-        .horizontalInset(0)
-        .colonWidth(4)
         .insets(UIEdgeInsetsMake(0, 4, 0, 4))
         .backgroundColor([UIColor whiteColor])
         .textLabelFont([UIFont systemFontOfSize:13])
@@ -87,6 +104,7 @@
         .colonLabelColor([UIColor colorWithRed:226/255.0 green:41/255.0 blue:39/255.0 alpha:1]);
         
         _timer = [CJJTimerView timerViewWithConfiguration:configuration];
+        _timer.delegate = self;
     }
     return _timer;
 }

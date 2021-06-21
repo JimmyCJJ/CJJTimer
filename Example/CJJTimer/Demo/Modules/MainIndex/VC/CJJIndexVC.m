@@ -7,6 +7,7 @@
 //
 
 #import "CJJIndexVC.h"
+#import "Masonry.h"
 
 @interface CJJIndexVC ()
 @property (nonatomic, strong) UIButton *enterBtn;

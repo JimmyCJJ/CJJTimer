@@ -7,6 +7,8 @@
 //
 
 #import "CJJTimerSMSCell.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
 @interface CJJTimerSMSCell ()
 @property (nonatomic, strong) UIButton *codeBtn;

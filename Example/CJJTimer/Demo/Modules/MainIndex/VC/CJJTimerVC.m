@@ -7,12 +7,14 @@
 //
 
 #import "CJJTimerVC.h"
+#import "Masonry.h"
 #import "CJJTimerModel.h"
 #import "CJJTimerHeaderView.h"
 #import "CJJTimerTBCell.h"
 #import "CJJTimerJDCell.h"
 #import "CJJTimerSNCell.h"
 #import "CJJTimerPDDCell.h"
+#import "CJJTimerDHMSColonCell.h"
 #import "CJJTimerHMSColonCell.h"
 #import "CJJTimerHMColonCell.h"
 #import "CJJTimerMSColonCell.h"
@@ -64,7 +66,7 @@
     if(indexPath.section == 3){
         return 90;
     }
-    return 60;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -96,28 +98,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section == 0){
+    if (indexPath.section == 0) {
         CJJTimerTBCell *cell = [CJJTimerTBCell makeCellWithTableView:tableView];
         return cell;
-    }else if(indexPath.section == 1){
+    } else if(indexPath.section == 1) {
         CJJTimerJDCell *cell = [CJJTimerJDCell makeCellWithTableView:tableView];
         return cell;
-    }else if(indexPath.section == 2){
+    } else if(indexPath.section == 2) {
         CJJTimerSNCell* cell = [CJJTimerSNCell makeCellWithTableView:tableView];
         return cell;
-    }else if(indexPath.section == 3){
+    } else if(indexPath.section == 3) {
         CJJTimerPDDCell *cell = [CJJTimerPDDCell makeCellWithTableView:tableView];
         return cell;
-    }else if(indexPath.section == 4){
+    } else if(indexPath.section == 4) {
+        CJJTimerDHMSColonCell *cell = [CJJTimerDHMSColonCell makeCellWithTableView:tableView];
+        return cell;
+    } else if(indexPath.section == 5) {
         CJJTimerHMSColonCell *cell = [CJJTimerHMSColonCell makeCellWithTableView:tableView];
         return cell;
-    }else if(indexPath.section == 5){
+    } else if(indexPath.section == 6) {
         CJJTimerHMColonCell *cell = [CJJTimerHMColonCell makeCellWithTableView:tableView];
         return cell;
-    }else if(indexPath.section == 6){
+    } else if(indexPath.section == 7) {
         CJJTimerMSColonCell *cell = [CJJTimerMSColonCell makeCellWithTableView:tableView];
         return cell;
-    }else{
+    } else {
         CJJTimerSMSCell *cell = [CJJTimerSMSCell makeCellWithTableView:tableView];
         return cell;
     }
@@ -142,18 +147,21 @@
         model4.name = @"拼多多倒计时";
         
         CJJTimerModel *model5 = [CJJTimerModel new];
-        model5.name = @"时分秒倒计时";
+        model5.name = @"天时分秒倒计时";
         
         CJJTimerModel *model6 = [CJJTimerModel new];
-        model6.name = @"时分倒计时";
+        model6.name = @"时分秒倒计时";
         
         CJJTimerModel *model7 = [CJJTimerModel new];
-        model7.name = @"分秒倒计时";
+        model7.name = @"时分倒计时";
         
         CJJTimerModel *model8 = [CJJTimerModel new];
-        model8.name = @"短信倒计时";
+        model8.name = @"分秒倒计时";
         
-        [_timerArr addObjectsFromArray:@[model1,model2,model3,model4,model5,model6,model7,model8]];
+        CJJTimerModel *model9 = [CJJTimerModel new];
+        model9.name = @"短信倒计时";
+        
+        [_timerArr addObjectsFromArray:@[model1, model2 ,model3 ,model4 ,model5 ,model6 ,model7 ,model8, model9]];
     }
     return _timerArr;
 }

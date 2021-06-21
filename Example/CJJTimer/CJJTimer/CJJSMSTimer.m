@@ -127,10 +127,10 @@
 
 - (dispatch_source_t)dispatchTimer{
     if(!_dispatchTimer){
-        kWeakSelf(self)
+        CJJWeakSelf(self)
         _dispatchTimer = CJJSMSTimerCreateDispatchTimer(1.0*NSEC_PER_SEC, 0, dispatch_get_global_queue(0, 0), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                kStrongSelf(self)
+                CJJStrongSelf(self)
                 [strongself handleEvent];
             });
         });

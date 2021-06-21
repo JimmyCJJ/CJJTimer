@@ -7,6 +7,8 @@
 //
 
 #import "CJJTimerMSColonCell.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
 @interface CJJTimerMSColonCell ()
 @property (nonatomic, strong) CJJTimerView *timer;

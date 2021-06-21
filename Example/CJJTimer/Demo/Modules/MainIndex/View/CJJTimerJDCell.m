@@ -7,6 +7,8 @@
 //
 
 #import "CJJTimerJDCell.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
 @interface CJJTimerJDCell ()
 @property (nonatomic, strong) UILabel *titleL;
@@ -64,7 +66,6 @@
         configuration.hiddenWhenFinished(NO)
         .viewWidth(15)
         .viewHeight(16)
-        .horizontalInset(2)
         .lastTime([NSString stringWithFormat:@"%ld",[self getNowTimeTimeStampSec].integerValue+30])
         .cornerRadius(3)
         .backgroundColor([UIColor colorWithRed:238/255.0 green:39/255.0 blue:5/255.0 alpha:1])

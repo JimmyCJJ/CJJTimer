@@ -7,6 +7,8 @@
 //
 
 #import "CJJTimerHeaderView.h"
+#import "CJJTimer.h"
+#import "Masonry.h"
 
 @interface CJJTimerHeaderView ()
 @property (nonatomic, strong) UILabel *nameL;
