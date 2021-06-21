@@ -673,7 +673,7 @@ static void *CJJTimerViewObserverContext = &CJJTimerViewObserverContext;
 - (BOOL)refreshView {
     
     //获取当前时间戳
-    NSString *currentStamp = [self getNowTimeTimeStampSec];
+    NSString *currentStamp = [CJJTimerTool getNowTimeTimeStampSec];
     NSString *endStamp = self.configuration.timerLastTime;
     
     NSDateComponents *compareDate = [CJJTimerTool startTimeStamp:currentStamp endTimeStamp:endStamp format:[self getTimerToolFormat]];

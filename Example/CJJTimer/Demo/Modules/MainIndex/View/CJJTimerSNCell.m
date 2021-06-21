@@ -9,6 +9,7 @@
 #import "CJJTimerSNCell.h"
 #import "CJJTimer.h"
 #import "Masonry.h"
+#import "NSObject+TimeExtension.h"
 
 @interface CJJTimerSNCell ()<CJJTimerViewDelegate>
 @property (nonatomic, strong) UILabel *timeL;

@@ -9,6 +9,7 @@
 #import "CJJTimerPDDCell.h"
 #import "CJJTimer.h"
 #import "Masonry.h"
+#import "NSObject+TimeExtension.h"
 
 @interface CJJTimerPDDCell ()
 @property (nonatomic, strong) UIView *backView;

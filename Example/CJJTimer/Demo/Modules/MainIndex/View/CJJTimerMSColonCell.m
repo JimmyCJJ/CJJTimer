@@ -9,6 +9,7 @@
 #import "CJJTimerMSColonCell.h"
 #import "CJJTimer.h"
 #import "Masonry.h"
+#import "NSObject+TimeExtension.h"
 
 @interface CJJTimerMSColonCell ()
 @property (nonatomic, strong) CJJTimerView *timer;
