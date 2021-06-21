@@ -13,7 +13,6 @@ s.source 		= { :git => 'https://github.com/JimmyCJJ/CJJTimer.git', :tag => s.ver
 s.frameworks = 'UIKit'
 s.requires_arc = true
 s.source_files = 'Example/CJJTimer/CJJTimer/*.{h,m}'
-s.dependency 'Masonry'
 
 end
 
