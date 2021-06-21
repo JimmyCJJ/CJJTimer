@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name 			= 'CJJTimer'
-s.version 		= '1.1.0'
+s.version 		= '2.0.0'
 s.license		= { :type => 'MIT'}
 s.summary		= 'CJJTimer是一个简单好用的定时器控件（短信、商品秒杀倒计时）'	
 s.description 		= 'CJJTimer is a simple and easy to use timer control (SMS, countdown).'
