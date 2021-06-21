@@ -48,7 +48,7 @@
     }
     
     NSDateComponents *cmps = [calendar components:unit fromDate:startDate toDate:endDate options:0];
-    NSLog(@"剩余%ld天,%ld小时%ld分%ld秒", cmps.day ,cmps.hour, cmps.minute, cmps.second);
+//    NSLog(@"剩余%ld天,%ld小时%ld分%ld秒", cmps.day ,cmps.hour, cmps.minute, cmps.second);
     return cmps;
 }
 

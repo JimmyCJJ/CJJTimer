@@ -82,7 +82,6 @@
 #pragma mark - CJJTimerViewDelegate
 
 - (void)changeModeInTimerView:(CJJTimerView *)timerView {
-    NSLog(@"回调了");
     [self.timer configureLayout:^(CGFloat timerWidth, CGFloat timerHeight) {
         [self.timer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.timeL.mas_right);
